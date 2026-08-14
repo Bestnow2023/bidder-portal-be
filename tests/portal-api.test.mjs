@@ -120,6 +120,7 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /createCryptomusPayout/);
   assert.match(store, /handleCryptomusPayoutWebhook/);
   assert.match(store, /Only clients can release bidder payments/);
+  assert.match(store, /target\.assignedAdminId === actor\.id/);
   assert.match(store, /Bidder must save a crypto payout wallet first/);
   assert.match(store, /portal_client_deposits/);
   assert.match(store, /portal_notifications/);
