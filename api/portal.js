@@ -1,6 +1,7 @@
 import {
   addChatMessage,
   addEscrowAsClient,
+  addManualCreditAsSuperAdmin,
   addPaymentAsAdmin,
   createCreditDeposit,
   deleteChatMessage,
@@ -11,6 +12,7 @@ import {
   editPaymentAsAdmin,
   getPortalData,
   handleCryptomusWebhook,
+  markNotificationsRead,
   refreshPortal,
   requestEmailVerification,
   requestPasswordReset,
@@ -166,6 +168,10 @@ export default async function handler(request, response) {
           return sendJson(response, 200, await addEscrowAsClient(email, payload));
         case "createCreditDeposit":
           return sendJson(response, 200, await createCreditDeposit(email, payload));
+        case "addManualCredit":
+          return sendJson(response, 200, await addManualCreditAsSuperAdmin(email, payload));
+        case "markNotificationsRead":
+          return sendJson(response, 200, await markNotificationsRead(email, payload));
         case "savePaymentMethod":
           return sendJson(response, 200, await savePaymentMethod(email, payload));
         case "saveWorkLog":

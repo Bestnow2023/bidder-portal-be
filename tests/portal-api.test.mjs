@@ -25,6 +25,8 @@ test("declares the MongoDB portal API", async () => {
     "saveProfile",
     "addEscrow",
     "createCreditDeposit",
+    "addManualCredit",
+    "markNotificationsRead",
     "savePaymentMethod",
     "saveWorkLog",
     "deleteWorkLog",
@@ -47,6 +49,7 @@ test("declares the MongoDB portal API", async () => {
     "portal_payments",
     "portal_escrows",
     "portal_client_deposits",
+    "portal_notifications",
     "portal_chat_messages",
     "portal_sessions",
     "portal_auth_tokens",
@@ -109,7 +112,11 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /CRYPTOMUS_CALLBACK_URL/);
   assert.match(store, /cryptomusSign/);
   assert.match(store, /portal_client_deposits/);
+  assert.match(store, /portal_notifications/);
   assert.match(store, /clientCreditBalance/);
+  assert.match(store, /createSuperAdminCreditNotification/);
+  assert.match(store, /Only super admins can add manual client credits/);
+  assert.match(store, /Client credit added/);
   assert.match(envExample, /MONGODB_URI/);
   assert.match(envExample, /PORTAL_MODE/);
   assert.match(envExample, /SUPER_ADMIN_EMAIL/);
