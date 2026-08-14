@@ -24,6 +24,7 @@ test("declares the MongoDB portal API", async () => {
     "savePaymentMethod",
     "saveWorkLog",
     "addPayment",
+    "editPayment",
     "addChatMessage",
     "editChatMessage",
     "deleteChatMessage",
@@ -54,6 +55,11 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /createSession/);
   assert.match(store, /passwordHash/);
   assert.match(store, /paidPaymentCoversDate/);
+  assert.match(store, /paidPaymentCoversPayDate/);
+  assert.match(store, /paymentFrequency/);
+  assert.match(store, /paymentWeekday/);
+  assert.match(store, /nextOpenPaymentDate/);
+  assert.match(store, /Payment link is required for paid records/);
   assert.match(store, /workLogId/);
   assert.match(store, /BREVO_API_KEY/);
   assert.match(store, /EMAIL_FROM/);

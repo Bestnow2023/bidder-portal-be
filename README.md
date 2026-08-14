@@ -58,7 +58,8 @@ The API runs locally at `http://localhost:4000/api/portal`.
   `refreshPortal`, `requestPasswordReset`, `resetPassword`, `verifyEmail`,
   `signIn`, `signUp`, `updateUser`, `setUserPassword`,
   `requestEmailVerification`, `savePaymentMethod`, `saveWorkLog`,
-  `addPayment`, `addChatMessage`, `editChatMessage`, or `deleteChatMessage`.
+  `addPayment`, `editPayment`, `addChatMessage`, `editChatMessage`, or
+  `deleteChatMessage`.
 
 Users authenticate with email and password. Passwords are stored as scrypt
 hashes, and successful sign-in/sign-up returns a session token used by later
@@ -76,6 +77,11 @@ attached file must be 2 MB or smaller.
 
 Bidders can update their own work logs until a paid payment record covers that
 work date.
+
+Bidder payment schedules are stored as weekly, biweekly, or monthly on a
+weekday from Monday through Friday. Admin payment records are paid-only and
+require a payment link; once the current pay date is paid, the next pay date
+advances automatically.
 
 The API creates MongoDB indexes automatically on first use and seeds:
 
