@@ -23,6 +23,7 @@ test("declares the MongoDB portal API", async () => {
     "requestEmailVerification",
     "savePaymentMethod",
     "saveWorkLog",
+    "deleteWorkLog",
     "addPayment",
     "editPayment",
     "addChatMessage",
@@ -60,6 +61,9 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /paymentWeekday/);
   assert.match(store, /nextOpenPaymentDate/);
   assert.match(store, /Payment link is required for paid records/);
+  assert.match(store, /needsEmailVerification/);
+  assert.match(store, /Verify your email before signing in/);
+  assert.match(store, /Paid work logs cannot be deleted/);
   assert.match(store, /workLogId/);
   assert.match(store, /BREVO_API_KEY/);
   assert.match(store, /EMAIL_FROM/);

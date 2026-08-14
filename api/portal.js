@@ -2,6 +2,7 @@ import {
   addChatMessage,
   addPaymentAsAdmin,
   deleteChatMessage,
+  deleteWorkLog,
   editChatMessage,
   editPaymentAsAdmin,
   getPortalData,
@@ -150,6 +151,8 @@ export default async function handler(request, response) {
           return sendJson(response, 200, await savePaymentMethod(email, payload));
         case "saveWorkLog":
           return sendJson(response, 200, await saveWorkLog(email, payload));
+        case "deleteWorkLog":
+          return sendJson(response, 200, await deleteWorkLog(email, payload));
         case "addPayment":
           return sendJson(response, 200, await addPaymentAsAdmin(email, payload));
         case "editPayment":

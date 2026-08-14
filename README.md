@@ -58,8 +58,8 @@ The API runs locally at `http://localhost:4000/api/portal`.
   `refreshPortal`, `requestPasswordReset`, `resetPassword`, `verifyEmail`,
   `signIn`, `signUp`, `updateUser`, `setUserPassword`,
   `requestEmailVerification`, `savePaymentMethod`, `saveWorkLog`,
-  `addPayment`, `editPayment`, `addChatMessage`, `editChatMessage`, or
-  `deleteChatMessage`.
+  `deleteWorkLog`, `addPayment`, `editPayment`, `addChatMessage`,
+  `editChatMessage`, or `deleteChatMessage`.
 
 Users authenticate with email and password. Passwords are stored as scrypt
 hashes, and successful sign-in/sign-up returns a session token used by later
@@ -67,6 +67,9 @@ portal actions.
 
 Existing accounts that were created before password auth can set their password
 on the first successful sign-in attempt. Dev demo accounts use `demo1234`.
+
+New signups receive an email verification link and must verify their email
+before signing in to the live portal.
 
 Password reset and email verification messages are sent through Brevo when
 `BREVO_API_KEY` and `EMAIL_FROM` are configured. In dev mode without email
