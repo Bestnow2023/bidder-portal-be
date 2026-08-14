@@ -22,6 +22,8 @@ test("declares the MongoDB portal API", async () => {
     "setUserPassword",
     "deleteUser",
     "requestEmailVerification",
+    "saveProfile",
+    "addEscrow",
     "savePaymentMethod",
     "saveWorkLog",
     "deleteWorkLog",
@@ -41,6 +43,7 @@ test("declares the MongoDB portal API", async () => {
     "portal_payment_methods",
     "portal_work_logs",
     "portal_payments",
+    "portal_escrows",
     "portal_chat_messages",
     "portal_sessions",
     "portal_auth_tokens",
@@ -58,6 +61,11 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /super_admin/);
   assert.match(store, /assignedAdminId/);
   assert.match(store, /visibleUsersForCurrentUser/);
+  assert.match(store, /profileCompletedAt/);
+  assert.match(store, /clientStats/);
+  assert.match(store, /attachUserStats/);
+  assert.match(store, /escrowFeeFor/);
+  assert.match(store, /feeAmount/);
   assert.match(store, /hashPassword/);
   assert.match(store, /verifyPassword/);
   assert.match(store, /createSession/);

@@ -1,5 +1,6 @@
 import {
   addChatMessage,
+  addEscrowAsClient,
   addPaymentAsAdmin,
   deleteChatMessage,
   deletePaymentAsAdmin,
@@ -13,6 +14,7 @@ import {
   requestPasswordReset,
   resetPassword,
   savePaymentMethod,
+  saveProfile,
   saveWorkLog,
   setUserPasswordAsAdmin,
   signIn,
@@ -152,6 +154,10 @@ export default async function handler(request, response) {
           return sendJson(response, 200, await deleteUserAsAdmin(email, payload));
         case "requestEmailVerification":
           return sendJson(response, 200, await requestEmailVerification(email, payload));
+        case "saveProfile":
+          return sendJson(response, 200, await saveProfile(email, payload));
+        case "addEscrow":
+          return sendJson(response, 200, await addEscrowAsClient(email, payload));
         case "savePaymentMethod":
           return sendJson(response, 200, await savePaymentMethod(email, payload));
         case "saveWorkLog":
