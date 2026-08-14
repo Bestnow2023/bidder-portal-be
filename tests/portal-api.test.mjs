@@ -59,6 +59,8 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /SUPER_ADMIN_EMAIL/);
   assert.match(store, /SUPER_ADMIN_PASSWORD/);
   assert.match(store, /super_admin/);
+  assert.match(store, /client@portal\.local/);
+  assert.match(store, /canonicalRole/);
   assert.match(store, /assignedAdminId/);
   assert.match(store, /visibleUsersForCurrentUser/);
   assert.match(store, /profileCompletedAt/);
@@ -96,7 +98,8 @@ test("declares the MongoDB portal API", async () => {
   assert.match(envExample, /EMAIL_FROM/);
   assert.match(envExample, /BREVO_API_KEY/);
   assert.match(store, /Demo accounts are disabled in live mode/);
-  assert.match(store, /firstLiveUser/);
+  assert.match(store, /Account not found\. Please sign up first/);
+  assert.doesNotMatch(store, /firstLiveUser/);
   assert.match(api, /Access-Control-Allow-Origin/);
   assert.doesNotMatch(`${api}\n${store}\n${packageJson}`, /stripe|@neondatabase|drizzle|DATABASE_URL|cloudflare:workers|env\.DB/i);
 });
