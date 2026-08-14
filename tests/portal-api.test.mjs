@@ -13,6 +13,7 @@ test("declares the MongoDB portal API", async () => {
 
   for (const action of [
     "signIn",
+    "signUp",
     "updateUser",
     "savePaymentMethod",
     "saveWorkLog",
@@ -36,7 +37,11 @@ test("declares the MongoDB portal API", async () => {
   const parsedPackage = JSON.parse(packageJson);
   assert.equal(parsedPackage.dependencies.mongodb.startsWith("^"), true);
   assert.match(store, /MONGODB_URI/);
+  assert.match(store, /PORTAL_MODE/);
   assert.match(envExample, /MONGODB_URI/);
+  assert.match(envExample, /PORTAL_MODE/);
+  assert.match(store, /Demo accounts are disabled in live mode/);
+  assert.match(store, /firstLiveUser/);
   assert.match(api, /Access-Control-Allow-Origin/);
   assert.doesNotMatch(`${api}\n${store}\n${packageJson}`, /stripe|@neondatabase|drizzle|DATABASE_URL|cloudflare:workers|env\.DB/i);
 });

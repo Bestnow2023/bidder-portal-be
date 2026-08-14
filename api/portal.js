@@ -5,6 +5,7 @@ import {
   savePaymentMethod,
   saveWorkLog,
   signIn,
+  signUp,
   updateUserAsAdmin,
 } from "../lib/portal-store.js";
 
@@ -95,6 +96,8 @@ export default async function handler(request, response) {
       switch (action) {
         case "signIn":
           return sendJson(response, 200, await signIn(email, typeof payload.name === "string" ? payload.name : undefined));
+        case "signUp":
+          return sendJson(response, 200, await signUp(email, typeof payload.name === "string" ? payload.name : undefined));
         case "updateUser":
           return sendJson(response, 200, await updateUserAsAdmin(email, payload));
         case "savePaymentMethod":

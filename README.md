@@ -21,6 +21,7 @@ Set the backend environment values in `.env.local`:
 ```text
 MONGODB_URI="mongodb+srv://USER:PASSWORD@CLUSTER.mongodb.net/bidder_portal?retryWrites=true&w=majority"
 MONGODB_DB="bidder_portal"
+PORTAL_MODE="dev"
 ALLOWED_ORIGINS="http://localhost:3000"
 PORT="4000"
 ```
@@ -30,13 +31,21 @@ The API runs locally at `http://localhost:4000/api/portal`.
 ## Vercel Setup
 
 1. Create a Vercel project from `Bestnow2023/bidder-portal-be`.
-2. Add `MONGODB_URI`, optional `MONGODB_DB`, and `ALLOWED_ORIGINS` in Vercel
-   Project Settings -> Environment Variables.
+2. Add `MONGODB_URI`, optional `MONGODB_DB`, `PORTAL_MODE`, and
+   `ALLOWED_ORIGINS` in Vercel Project Settings -> Environment Variables.
 3. Set `ALLOWED_ORIGINS` to your frontend URL, for example
    `https://bidder-portal.vercel.app`.
-4. Deploy.
-5. In the frontend Vercel project, set `NEXT_PUBLIC_API_BASE_URL` to this
+4. Set `PORTAL_MODE` to `live` for production.
+5. Deploy.
+6. In the frontend Vercel project, set `NEXT_PUBLIC_API_BASE_URL` to this
    backend URL.
+
+## Modes
+
+- `PORTAL_MODE=dev`: seeds demo accounts and allows demo email sign-in.
+- `PORTAL_MODE=live`: disables demo accounts and requires unknown users to sign
+  up first. The first real live signup becomes the initial approved admin;
+  later signups become pending bidders for admin approval.
 
 ## API
 
