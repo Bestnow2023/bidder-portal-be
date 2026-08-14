@@ -53,6 +53,11 @@ test("declares the MongoDB portal API", async () => {
   assert.equal(parsedPackage.dependencies.mongodb.startsWith("^"), true);
   assert.match(store, /MONGODB_URI/);
   assert.match(store, /PORTAL_MODE/);
+  assert.match(store, /SUPER_ADMIN_EMAIL/);
+  assert.match(store, /SUPER_ADMIN_PASSWORD/);
+  assert.match(store, /super_admin/);
+  assert.match(store, /assignedAdminId/);
+  assert.match(store, /visibleUsersForCurrentUser/);
   assert.match(store, /hashPassword/);
   assert.match(store, /verifyPassword/);
   assert.match(store, /createSession/);
@@ -77,6 +82,8 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /chatUserIds/);
   assert.match(envExample, /MONGODB_URI/);
   assert.match(envExample, /PORTAL_MODE/);
+  assert.match(envExample, /SUPER_ADMIN_EMAIL/);
+  assert.match(envExample, /SUPER_ADMIN_PASSWORD/);
   assert.match(envExample, /APP_BASE_URL/);
   assert.match(envExample, /EMAIL_FROM/);
   assert.match(envExample, /BREVO_API_KEY/);

@@ -140,7 +140,8 @@ export default async function handler(request, response) {
             await signUp(
               email,
               typeof payload.name === "string" ? payload.name : undefined,
-              typeof payload.password === "string" ? payload.password : ""
+              typeof payload.password === "string" ? payload.password : "",
+              typeof payload.role === "string" ? payload.role : "bidder"
             )
           );
         case "updateUser":
