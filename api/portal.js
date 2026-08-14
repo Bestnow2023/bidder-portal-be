@@ -5,10 +5,15 @@ import {
   editChatMessage,
   getPortalData,
   refreshPortal,
+  requestEmailVerification,
+  requestPasswordReset,
+  resetPassword,
   savePaymentMethod,
   saveWorkLog,
+  setUserPasswordAsAdmin,
   signIn,
   signUp,
+  verifyEmail,
   updateUserAsAdmin,
 } from "../lib/portal-store.js";
 
@@ -100,6 +105,20 @@ export default async function handler(request, response) {
       switch (action) {
         case "refreshPortal":
           return sendJson(response, 200, await refreshPortal(email, typeof payload.sessionToken === "string" ? payload.sessionToken : ""));
+        case "requestPasswordReset":
+          return sendJson(response, 200, await requestPasswordReset(email));
+        case "resetPassword":
+          return sendJson(
+            response,
+            200,
+            await resetPassword(
+              email,
+              typeof payload.resetToken === "string" ? payload.resetToken : "",
+              typeof payload.password === "string" ? payload.password : ""
+            )
+          );
+        case "verifyEmail":
+          return sendJson(response, 200, await verifyEmail(email, typeof payload.verifyToken === "string" ? payload.verifyToken : ""));
         case "signIn":
           return sendJson(
             response,
@@ -122,6 +141,10 @@ export default async function handler(request, response) {
           );
         case "updateUser":
           return sendJson(response, 200, await updateUserAsAdmin(email, payload));
+        case "setUserPassword":
+          return sendJson(response, 200, await setUserPasswordAsAdmin(email, payload));
+        case "requestEmailVerification":
+          return sendJson(response, 200, await requestEmailVerification(email, payload));
         case "savePaymentMethod":
           return sendJson(response, 200, await savePaymentMethod(email, payload));
         case "saveWorkLog":

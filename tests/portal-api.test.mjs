@@ -13,9 +13,14 @@ test("declares the MongoDB portal API", async () => {
 
   for (const action of [
     "refreshPortal",
+    "requestPasswordReset",
+    "resetPassword",
+    "verifyEmail",
     "signIn",
     "signUp",
     "updateUser",
+    "setUserPassword",
+    "requestEmailVerification",
     "savePaymentMethod",
     "saveWorkLog",
     "addPayment",
@@ -34,6 +39,8 @@ test("declares the MongoDB portal API", async () => {
     "portal_payments",
     "portal_chat_messages",
     "portal_sessions",
+    "portal_auth_tokens",
+    "portal_email_events",
   ]) {
     assert.match(store, new RegExp(collection));
   }
@@ -48,11 +55,18 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /passwordHash/);
   assert.match(store, /paidPaymentCoversDate/);
   assert.match(store, /workLogId/);
+  assert.match(store, /BREVO_API_KEY/);
+  assert.match(store, /EMAIL_FROM/);
+  assert.match(store, /APP_BASE_URL/);
+  assert.match(store, /emailVerifiedAt/);
   assert.match(store, /MAX_CHAT_ATTACHMENT_BYTES/);
   assert.match(store, /authorTimeZone/);
   assert.match(store, /deletedAt/);
   assert.match(envExample, /MONGODB_URI/);
   assert.match(envExample, /PORTAL_MODE/);
+  assert.match(envExample, /APP_BASE_URL/);
+  assert.match(envExample, /EMAIL_FROM/);
+  assert.match(envExample, /BREVO_API_KEY/);
   assert.match(store, /Demo accounts are disabled in live mode/);
   assert.match(store, /firstLiveUser/);
   assert.match(api, /Access-Control-Allow-Origin/);

@@ -23,6 +23,9 @@ MONGODB_URI="mongodb+srv://USER:PASSWORD@CLUSTER.mongodb.net/bidder_portal?retry
 MONGODB_DB="bidder_portal"
 PORTAL_MODE="dev"
 ALLOWED_ORIGINS="http://localhost:3000"
+APP_BASE_URL="http://localhost:3000"
+EMAIL_FROM="Bidder Portal <noreply@your-domain.com>"
+BREVO_API_KEY=""
 PORT="4000"
 ```
 
@@ -31,8 +34,9 @@ The API runs locally at `http://localhost:4000/api/portal`.
 ## Vercel Setup
 
 1. Create a Vercel project from `Bestnow2023/bidder-portal-be`.
-2. Add `MONGODB_URI`, optional `MONGODB_DB`, `PORTAL_MODE`, and
-   `ALLOWED_ORIGINS` in Vercel Project Settings -> Environment Variables.
+2. Add `MONGODB_URI`, optional `MONGODB_DB`, `PORTAL_MODE`,
+   `ALLOWED_ORIGINS`, `APP_BASE_URL`, `EMAIL_FROM`, and `BREVO_API_KEY`
+   in Vercel Project Settings -> Environment Variables.
 3. Set `ALLOWED_ORIGINS` to your frontend URL, for example
    `https://bidder-portal.vercel.app`.
 4. Set `PORTAL_MODE` to `live` for production.
@@ -51,9 +55,10 @@ The API runs locally at `http://localhost:4000/api/portal`.
 
 - `GET /api/portal?email=admin@portal.local&sessionToken=...`: load portal data.
 - `POST /api/portal`: run portal actions with JSON body:
-  `refreshPortal`, `signIn`, `signUp`, `updateUser`, `savePaymentMethod`,
-  `saveWorkLog`, `addPayment`, `addChatMessage`, `editChatMessage`, or
-  `deleteChatMessage`.
+  `refreshPortal`, `requestPasswordReset`, `resetPassword`, `verifyEmail`,
+  `signIn`, `signUp`, `updateUser`, `setUserPassword`,
+  `requestEmailVerification`, `savePaymentMethod`, `saveWorkLog`,
+  `addPayment`, `addChatMessage`, `editChatMessage`, or `deleteChatMessage`.
 
 Users authenticate with email and password. Passwords are stored as scrypt
 hashes, and successful sign-in/sign-up returns a session token used by later
@@ -61,6 +66,10 @@ portal actions.
 
 Existing accounts that were created before password auth can set their password
 on the first successful sign-in attempt. Dev demo accounts use `demo1234`.
+
+Password reset and email verification messages are sent through Brevo when
+`BREVO_API_KEY` and `EMAIL_FROM` are configured. In dev mode without email
+settings, messages are saved to `portal_email_events` for testing.
 
 Chat attachments are stored directly with the message as small data URLs. Each
 attached file must be 2 MB or smaller.
