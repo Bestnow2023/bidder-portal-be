@@ -89,7 +89,13 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /MAX_CHAT_ATTACHMENT_BYTES/);
   assert.match(store, /authorTimeZone/);
   assert.match(store, /deletedAt/);
-  assert.match(store, /chatUserIds/);
+  assert.match(store, /chatContacts/);
+  assert.match(store, /recipientId/);
+  assert.match(store, /conversationId/);
+  assert.match(store, /directMessageFilterForUser/);
+  assert.match(store, /Select a valid inbox recipient/);
+  assert.match(store, /Only super admins can delete inbox messages/);
+  assert.match(store, /methodId/);
   assert.match(envExample, /MONGODB_URI/);
   assert.match(envExample, /PORTAL_MODE/);
   assert.match(envExample, /SUPER_ADMIN_EMAIL/);
