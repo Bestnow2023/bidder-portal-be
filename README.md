@@ -49,13 +49,24 @@ The API runs locally at `http://localhost:4000/api/portal`.
 
 ## API
 
-- `GET /api/portal?email=admin@portal.local`: load portal data.
+- `GET /api/portal?email=admin@portal.local&sessionToken=...`: load portal data.
 - `POST /api/portal`: run portal actions with JSON body:
-  `signIn`, `signUp`, `updateUser`, `savePaymentMethod`, `saveWorkLog`,
-  `addPayment`, `addChatMessage`, `editChatMessage`, or `deleteChatMessage`.
+  `refreshPortal`, `signIn`, `signUp`, `updateUser`, `savePaymentMethod`,
+  `saveWorkLog`, `addPayment`, `addChatMessage`, `editChatMessage`, or
+  `deleteChatMessage`.
+
+Users authenticate with email and password. Passwords are stored as scrypt
+hashes, and successful sign-in/sign-up returns a session token used by later
+portal actions.
+
+Existing accounts that were created before password auth can set their password
+on the first successful sign-in attempt. Dev demo accounts use `demo1234`.
 
 Chat attachments are stored directly with the message as small data URLs. Each
 attached file must be 2 MB or smaller.
+
+Bidders can update their own work logs until a paid payment record covers that
+work date.
 
 The API creates MongoDB indexes automatically on first use and seeds:
 

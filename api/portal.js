@@ -4,6 +4,7 @@ import {
   deleteChatMessage,
   editChatMessage,
   getPortalData,
+  refreshPortal,
   savePaymentMethod,
   saveWorkLog,
   signIn,
@@ -75,11 +76,12 @@ export default async function handler(request, response) {
     try {
       const url = new URL(request.url || "/", "http://localhost");
       const email = url.searchParams.get("email") || "";
+      const sessionToken = url.searchParams.get("sessionToken") || "";
       if (!email) {
         return errorResponse(response, new Error("Email is required."), 400);
       }
 
-      return sendJson(response, 200, await getPortalData(email));
+      return sendJson(response, 200, await getPortalData(email, sessionToken));
     } catch (error) {
       return errorResponse(response, error, 500);
     }
@@ -96,10 +98,28 @@ export default async function handler(request, response) {
       }
 
       switch (action) {
+        case "refreshPortal":
+          return sendJson(response, 200, await refreshPortal(email, typeof payload.sessionToken === "string" ? payload.sessionToken : ""));
         case "signIn":
-          return sendJson(response, 200, await signIn(email, typeof payload.name === "string" ? payload.name : undefined));
+          return sendJson(
+            response,
+            200,
+            await signIn(
+              email,
+              typeof payload.password === "string" ? payload.password : "",
+              typeof payload.name === "string" ? payload.name : undefined
+            )
+          );
         case "signUp":
-          return sendJson(response, 200, await signUp(email, typeof payload.name === "string" ? payload.name : undefined));
+          return sendJson(
+            response,
+            200,
+            await signUp(
+              email,
+              typeof payload.name === "string" ? payload.name : undefined,
+              typeof payload.password === "string" ? payload.password : ""
+            )
+          );
         case "updateUser":
           return sendJson(response, 200, await updateUserAsAdmin(email, payload));
         case "savePaymentMethod":

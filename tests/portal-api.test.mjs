@@ -12,6 +12,7 @@ test("declares the MongoDB portal API", async () => {
   ]);
 
   for (const action of [
+    "refreshPortal",
     "signIn",
     "signUp",
     "updateUser",
@@ -32,6 +33,7 @@ test("declares the MongoDB portal API", async () => {
     "portal_work_logs",
     "portal_payments",
     "portal_chat_messages",
+    "portal_sessions",
   ]) {
     assert.match(store, new RegExp(collection));
   }
@@ -40,6 +42,12 @@ test("declares the MongoDB portal API", async () => {
   assert.equal(parsedPackage.dependencies.mongodb.startsWith("^"), true);
   assert.match(store, /MONGODB_URI/);
   assert.match(store, /PORTAL_MODE/);
+  assert.match(store, /hashPassword/);
+  assert.match(store, /verifyPassword/);
+  assert.match(store, /createSession/);
+  assert.match(store, /passwordHash/);
+  assert.match(store, /paidPaymentCoversDate/);
+  assert.match(store, /workLogId/);
   assert.match(store, /MAX_CHAT_ATTACHMENT_BYTES/);
   assert.match(store, /authorTimeZone/);
   assert.match(store, /deletedAt/);
