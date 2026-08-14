@@ -72,6 +72,7 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /MAX_CHAT_ATTACHMENT_BYTES/);
   assert.match(store, /authorTimeZone/);
   assert.match(store, /deletedAt/);
+  assert.match(store, /chatUserIds/);
   assert.match(envExample, /MONGODB_URI/);
   assert.match(envExample, /PORTAL_MODE/);
   assert.match(envExample, /APP_BASE_URL/);
