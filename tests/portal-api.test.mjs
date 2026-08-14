@@ -19,6 +19,8 @@ test("declares the MongoDB portal API", async () => {
     "saveWorkLog",
     "addPayment",
     "addChatMessage",
+    "editChatMessage",
+    "deleteChatMessage",
   ]) {
     assert.match(api, new RegExp(action));
     assert.match(store, new RegExp(action));
@@ -38,6 +40,9 @@ test("declares the MongoDB portal API", async () => {
   assert.equal(parsedPackage.dependencies.mongodb.startsWith("^"), true);
   assert.match(store, /MONGODB_URI/);
   assert.match(store, /PORTAL_MODE/);
+  assert.match(store, /MAX_CHAT_ATTACHMENT_BYTES/);
+  assert.match(store, /authorTimeZone/);
+  assert.match(store, /deletedAt/);
   assert.match(envExample, /MONGODB_URI/);
   assert.match(envExample, /PORTAL_MODE/);
   assert.match(store, /Demo accounts are disabled in live mode/);

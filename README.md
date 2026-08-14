@@ -51,8 +51,11 @@ The API runs locally at `http://localhost:4000/api/portal`.
 
 - `GET /api/portal?email=admin@portal.local`: load portal data.
 - `POST /api/portal`: run portal actions with JSON body:
-  `signIn`, `updateUser`, `savePaymentMethod`, `saveWorkLog`, `addPayment`, or
-  `addChatMessage`.
+  `signIn`, `signUp`, `updateUser`, `savePaymentMethod`, `saveWorkLog`,
+  `addPayment`, `addChatMessage`, `editChatMessage`, or `deleteChatMessage`.
+
+Chat attachments are stored directly with the message as small data URLs. Each
+attached file must be 2 MB or smaller.
 
 The API creates MongoDB indexes automatically on first use and seeds:
 

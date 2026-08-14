@@ -1,6 +1,8 @@
 import {
   addChatMessage,
   addPaymentAsAdmin,
+  deleteChatMessage,
+  editChatMessage,
   getPortalData,
   savePaymentMethod,
   saveWorkLog,
@@ -108,6 +110,10 @@ export default async function handler(request, response) {
           return sendJson(response, 200, await addPaymentAsAdmin(email, payload));
         case "addChatMessage":
           return sendJson(response, 200, await addChatMessage(email, payload));
+        case "editChatMessage":
+          return sendJson(response, 200, await editChatMessage(email, payload));
+        case "deleteChatMessage":
+          return sendJson(response, 200, await deleteChatMessage(email, payload));
         default:
           return errorResponse(response, new Error("Unknown action."), 400);
       }
