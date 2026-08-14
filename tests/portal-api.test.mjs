@@ -95,6 +95,8 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /directMessageFilterForUser/);
   assert.match(store, /Select a valid inbox recipient/);
   assert.match(store, /Only super admins can delete inbox messages/);
+  assert.match(store, /allowDirectMessages/);
+  assert.match(store, /not accepting direct messages/);
   assert.match(store, /methodId/);
   assert.match(envExample, /MONGODB_URI/);
   assert.match(envExample, /PORTAL_MODE/);
