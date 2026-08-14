@@ -24,6 +24,7 @@ test("declares the MongoDB portal API", async () => {
     "requestEmailVerification",
     "saveProfile",
     "addEscrow",
+    "createCreditDeposit",
     "savePaymentMethod",
     "saveWorkLog",
     "deleteWorkLog",
@@ -33,6 +34,7 @@ test("declares the MongoDB portal API", async () => {
     "addChatMessage",
     "editChatMessage",
     "deleteChatMessage",
+    "handleCryptomusWebhook",
   ]) {
     assert.match(api, new RegExp(action));
     assert.match(store, new RegExp(action));
@@ -44,6 +46,7 @@ test("declares the MongoDB portal API", async () => {
     "portal_work_logs",
     "portal_payments",
     "portal_escrows",
+    "portal_client_deposits",
     "portal_chat_messages",
     "portal_sessions",
     "portal_auth_tokens",
@@ -77,7 +80,8 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /paymentFrequency/);
   assert.match(store, /paymentWeekday/);
   assert.match(store, /nextOpenPaymentDate/);
-  assert.match(store, /Payment link is required for paid records/);
+  assert.match(store, /Client does not have enough credits for this payment/);
+  assert.match(store, /This bidder is contracted with another client/);
   assert.match(store, /needsEmailVerification/);
   assert.match(store, /Verify your email before signing in/);
   assert.match(store, /Paid work logs cannot be deleted/);
@@ -85,6 +89,7 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /BREVO_API_KEY/);
   assert.match(store, /EMAIL_FROM/);
   assert.match(store, /APP_BASE_URL/);
+  assert.match(store, /API_BASE_URL/);
   assert.match(store, /emailVerifiedAt/);
   assert.match(store, /MAX_CHAT_ATTACHMENT_BYTES/);
   assert.match(store, /authorTimeZone/);
@@ -98,13 +103,24 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /allowDirectMessages/);
   assert.match(store, /not accepting direct messages/);
   assert.match(store, /methodId/);
+  assert.match(store, /CRYPTOMUS_MERCHANT_UUID/);
+  assert.match(store, /CRYPTOMUS_PAYMENT_KEY/);
+  assert.match(store, /CRYPTOMUS_API_BASE_URL/);
+  assert.match(store, /CRYPTOMUS_CALLBACK_URL/);
+  assert.match(store, /cryptomusSign/);
+  assert.match(store, /portal_client_deposits/);
+  assert.match(store, /clientCreditBalance/);
   assert.match(envExample, /MONGODB_URI/);
   assert.match(envExample, /PORTAL_MODE/);
   assert.match(envExample, /SUPER_ADMIN_EMAIL/);
   assert.match(envExample, /SUPER_ADMIN_PASSWORD/);
   assert.match(envExample, /APP_BASE_URL/);
+  assert.match(envExample, /API_BASE_URL/);
   assert.match(envExample, /EMAIL_FROM/);
   assert.match(envExample, /BREVO_API_KEY/);
+  assert.match(envExample, /CRYPTOMUS_MERCHANT_UUID/);
+  assert.match(envExample, /CRYPTOMUS_PAYMENT_KEY/);
+  assert.match(envExample, /CRYPTOMUS_API_BASE_URL/);
   assert.match(store, /Demo accounts are disabled in live mode/);
   assert.match(store, /Account not found\. Please sign up first/);
   assert.doesNotMatch(store, /firstLiveUser/);

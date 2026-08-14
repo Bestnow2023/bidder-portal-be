@@ -2,6 +2,7 @@ import {
   addChatMessage,
   addEscrowAsClient,
   addPaymentAsAdmin,
+  createCreditDeposit,
   deleteChatMessage,
   deletePaymentAsAdmin,
   deleteUserAsAdmin,
@@ -9,6 +10,7 @@ import {
   editChatMessage,
   editPaymentAsAdmin,
   getPortalData,
+  handleCryptomusWebhook,
   refreshPortal,
   requestEmailVerification,
   requestPasswordReset,
@@ -104,6 +106,10 @@ export default async function handler(request, response) {
       const action = typeof payload.action === "string" ? payload.action : "";
       const email = typeof payload.email === "string" ? payload.email : "";
 
+      if (!action && payload.sign && payload.order_id) {
+        return sendJson(response, 200, await handleCryptomusWebhook(payload));
+      }
+
       if (!email) {
         return errorResponse(response, new Error("Email is required."), 400);
       }
@@ -158,6 +164,8 @@ export default async function handler(request, response) {
           return sendJson(response, 200, await saveProfile(email, payload));
         case "addEscrow":
           return sendJson(response, 200, await addEscrowAsClient(email, payload));
+        case "createCreditDeposit":
+          return sendJson(response, 200, await createCreditDeposit(email, payload));
         case "savePaymentMethod":
           return sendJson(response, 200, await savePaymentMethod(email, payload));
         case "saveWorkLog":
