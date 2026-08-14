@@ -2,6 +2,8 @@ import {
   addChatMessage,
   addPaymentAsAdmin,
   deleteChatMessage,
+  deletePaymentAsAdmin,
+  deleteUserAsAdmin,
   deleteWorkLog,
   editChatMessage,
   editPaymentAsAdmin,
@@ -145,6 +147,8 @@ export default async function handler(request, response) {
           return sendJson(response, 200, await updateUserAsAdmin(email, payload));
         case "setUserPassword":
           return sendJson(response, 200, await setUserPasswordAsAdmin(email, payload));
+        case "deleteUser":
+          return sendJson(response, 200, await deleteUserAsAdmin(email, payload));
         case "requestEmailVerification":
           return sendJson(response, 200, await requestEmailVerification(email, payload));
         case "savePaymentMethod":
@@ -157,6 +161,8 @@ export default async function handler(request, response) {
           return sendJson(response, 200, await addPaymentAsAdmin(email, payload));
         case "editPayment":
           return sendJson(response, 200, await editPaymentAsAdmin(email, payload));
+        case "deletePayment":
+          return sendJson(response, 200, await deletePaymentAsAdmin(email, payload));
         case "addChatMessage":
           return sendJson(response, 200, await addChatMessage(email, payload));
         case "editChatMessage":
