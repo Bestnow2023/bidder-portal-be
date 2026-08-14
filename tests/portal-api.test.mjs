@@ -89,6 +89,8 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /This bidder is contracted with another client/);
   assert.match(store, /needsEmailVerification/);
   assert.match(store, /Verify your email before signing in/);
+  assert.match(store, /Verify your email before using the portal/);
+  assert.match(store, /Password reset\. Check your email to verify your account before signing in/);
   assert.match(store, /Paid work logs cannot be deleted/);
   assert.match(store, /workLogId/);
   assert.match(store, /BREVO_API_KEY/);
