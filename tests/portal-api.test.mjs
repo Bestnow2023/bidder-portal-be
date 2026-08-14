@@ -27,6 +27,7 @@ test("declares the MongoDB portal API", async () => {
     "createCreditDeposit",
     "addManualCredit",
     "markNotificationsRead",
+    "releasePayment",
     "savePaymentMethod",
     "saveWorkLog",
     "deleteWorkLog",
@@ -80,6 +81,7 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /passwordHash/);
   assert.match(store, /paidPaymentCoversDate/);
   assert.match(store, /paidPaymentCoversPayDate/);
+  assert.match(store, /releasedPaymentOverlapsPeriod/);
   assert.match(store, /paymentFrequency/);
   assert.match(store, /paymentWeekday/);
   assert.match(store, /nextOpenPaymentDate/);
@@ -108,9 +110,15 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /methodId/);
   assert.match(store, /CRYPTOMUS_MERCHANT_UUID/);
   assert.match(store, /CRYPTOMUS_PAYMENT_KEY/);
+  assert.match(store, /CRYPTOMUS_PAYOUT_KEY/);
   assert.match(store, /CRYPTOMUS_API_BASE_URL/);
   assert.match(store, /CRYPTOMUS_CALLBACK_URL/);
+  assert.match(store, /CRYPTOMUS_PAYOUT_TEST_MODE/);
   assert.match(store, /cryptomusSign/);
+  assert.match(store, /createCryptomusPayout/);
+  assert.match(store, /handleCryptomusPayoutWebhook/);
+  assert.match(store, /Only clients can release bidder payments/);
+  assert.match(store, /Bidder must save a crypto payout wallet first/);
   assert.match(store, /portal_client_deposits/);
   assert.match(store, /portal_notifications/);
   assert.match(store, /clientCreditBalance/);
@@ -127,7 +135,9 @@ test("declares the MongoDB portal API", async () => {
   assert.match(envExample, /BREVO_API_KEY/);
   assert.match(envExample, /CRYPTOMUS_MERCHANT_UUID/);
   assert.match(envExample, /CRYPTOMUS_PAYMENT_KEY/);
+  assert.match(envExample, /CRYPTOMUS_PAYOUT_KEY/);
   assert.match(envExample, /CRYPTOMUS_API_BASE_URL/);
+  assert.match(envExample, /CRYPTOMUS_PAYOUT_TEST_MODE/);
   assert.match(store, /Demo accounts are disabled in live mode/);
   assert.match(store, /Account not found\. Please sign up first/);
   assert.doesNotMatch(store, /firstLiveUser/);

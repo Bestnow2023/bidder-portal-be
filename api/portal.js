@@ -13,6 +13,7 @@ import {
   getPortalData,
   handleCryptomusWebhook,
   markNotificationsRead,
+  releasePaymentAsClient,
   refreshPortal,
   requestEmailVerification,
   requestPasswordReset,
@@ -180,6 +181,8 @@ export default async function handler(request, response) {
           return sendJson(response, 200, await deleteWorkLog(email, payload));
         case "addPayment":
           return sendJson(response, 200, await addPaymentAsAdmin(email, payload));
+        case "releasePayment":
+          return sendJson(response, 200, await releasePaymentAsClient(email, payload));
         case "editPayment":
           return sendJson(response, 200, await editPaymentAsAdmin(email, payload));
         case "deletePayment":
