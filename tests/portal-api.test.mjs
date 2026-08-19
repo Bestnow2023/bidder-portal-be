@@ -26,6 +26,10 @@ test("declares the MongoDB portal API", async () => {
     "addEscrow",
     "createCreditDeposit",
     "addManualCredit",
+    "createPost",
+    "updatePostStatus",
+    "createContract",
+    "updateContractStatus",
     "markNotificationsRead",
     "releasePayment",
     "savePaymentMethod",
@@ -50,6 +54,9 @@ test("declares the MongoDB portal API", async () => {
     "portal_payments",
     "portal_escrows",
     "portal_client_deposits",
+    "portal_credit_ledger",
+    "portal_contracts",
+    "portal_posts",
     "portal_notifications",
     "portal_chat_messages",
     "portal_sessions",
@@ -73,6 +80,18 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /profileCompletedAt/);
   assert.match(store, /clientStats/);
   assert.match(store, /attachUserStats/);
+  assert.match(store, /SIGNUP_GIFT_CREDIT/);
+  assert.match(store, /POST_CREDIT_COST/);
+  assert.match(store, /creditBalancesForUser/);
+  assert.match(store, /spendPostingCredit/);
+  assert.match(store, /contractFilterForUser/);
+  assert.match(store, /postFilterForUser/);
+  assert.match(store, /createContract/);
+  assert.match(store, /updateContractStatus/);
+  assert.match(store, /createPost/);
+  assert.match(store, /updatePostStatus/);
+  assert.match(store, /Free signup posting credit/);
+  assert.match(store, /You need at least \$1 credit to publish a post/);
   assert.match(store, /escrowFeeFor/);
   assert.match(store, /feeAmount/);
   assert.match(store, /hashPassword/);

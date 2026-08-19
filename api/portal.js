@@ -4,6 +4,8 @@ import {
   addManualCreditAsSuperAdmin,
   addPaymentAsAdmin,
   createCreditDeposit,
+  createContract,
+  createPost,
   deleteChatMessage,
   deletePaymentAsAdmin,
   deleteUserAsAdmin,
@@ -26,6 +28,8 @@ import {
   signUp,
   verifyEmail,
   updateUserAsAdmin,
+  updateContractStatus,
+  updatePostStatus,
 } from "../lib/portal-store.js";
 
 function allowedOrigins() {
@@ -171,6 +175,14 @@ export default async function handler(request, response) {
           return sendJson(response, 200, await createCreditDeposit(email, payload));
         case "addManualCredit":
           return sendJson(response, 200, await addManualCreditAsSuperAdmin(email, payload));
+        case "createPost":
+          return sendJson(response, 200, await createPost(email, payload));
+        case "updatePostStatus":
+          return sendJson(response, 200, await updatePostStatus(email, payload));
+        case "createContract":
+          return sendJson(response, 200, await createContract(email, payload));
+        case "updateContractStatus":
+          return sendJson(response, 200, await updateContractStatus(email, payload));
         case "markNotificationsRead":
           return sendJson(response, 200, await markNotificationsRead(email, payload));
         case "savePaymentMethod":
