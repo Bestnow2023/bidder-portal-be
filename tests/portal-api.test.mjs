@@ -39,6 +39,7 @@ test("declares the MongoDB portal API", async () => {
     "updateDispute",
     "markNotificationsRead",
     "releasePayment",
+    "completePayment",
     "savePaymentMethod",
     "saveWorkLog",
     "deleteWorkLog",
@@ -173,6 +174,11 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /createCryptomusPayout/);
   assert.match(store, /handleCryptomusPayoutWebhook/);
   assert.match(store, /Only clients can release bidder payments/);
+  assert.match(store, /completePaymentAsSuperAdmin/);
+  assert.match(store, /Only super admins can mark payments completed/);
+  assert.match(store, /Only processing payments can be marked completed/);
+  assert.match(store, /completedAt/);
+  assert.match(store, /completedByUserId/);
   assert.match(store, /sourcePaymentId/);
   assert.match(store, /baseAmount/);
   assert.match(store, /Select a valid scheduled payment to release/);

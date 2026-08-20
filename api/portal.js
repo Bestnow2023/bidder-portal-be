@@ -8,6 +8,7 @@ import {
   createContract,
   createDispute,
   createPost,
+  completePaymentAsSuperAdmin,
   deleteBidProfile,
   deleteChatMessage,
   deletePaymentAsAdmin,
@@ -219,6 +220,8 @@ export default async function handler(request, response) {
           return sendJson(response, 200, await addPaymentAsAdmin(email, payload));
         case "releasePayment":
           return sendJson(response, 200, await releasePaymentAsClient(email, payload));
+        case "completePayment":
+          return sendJson(response, 200, await completePaymentAsSuperAdmin(email, payload));
         case "editPayment":
           return sendJson(response, 200, await editPaymentAsAdmin(email, payload));
         case "deletePayment":
