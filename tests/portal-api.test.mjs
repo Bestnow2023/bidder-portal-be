@@ -23,6 +23,8 @@ test("declares the MongoDB portal API", async () => {
     "deleteUser",
     "requestEmailVerification",
     "saveProfile",
+    "updateOwnEmail",
+    "updateOwnPassword",
     "saveBidProfile",
     "deleteBidProfile",
     "addEscrow",
@@ -126,6 +128,8 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /Verify your email before signing in/);
   assert.match(store, /Verify your email before using the portal/);
   assert.match(store, /Password reset\. Check your email to verify your account before signing in/);
+  assert.match(store, /Email changed\. Check your email to verify the new address before signing in/);
+  assert.match(store, /Current password is incorrect/);
   assert.match(store, /Paid work logs cannot be deleted/);
   assert.match(store, /workLogId/);
   assert.match(store, /BREVO_API_KEY/);
@@ -139,6 +143,8 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /chatContacts/);
   assert.match(store, /recipientId/);
   assert.match(store, /conversationId/);
+  assert.match(store, /relatedPostId/);
+  assert.match(store, /Related post must belong to one of the inbox members/);
   assert.match(store, /directMessageFilterForUser/);
   assert.match(store, /Select a valid inbox recipient/);
   assert.match(store, /Only super admins can delete inbox messages/);
@@ -155,6 +161,11 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /createCryptomusPayout/);
   assert.match(store, /handleCryptomusPayoutWebhook/);
   assert.match(store, /Only clients can release bidder payments/);
+  assert.match(store, /sourcePaymentId/);
+  assert.match(store, /baseAmount/);
+  assert.match(store, /Select a valid scheduled payment to release/);
+  assert.match(store, /Super admins can monitor inbox conversations but cannot send direct messages/);
+  assert.match(store, /Inbox messages are only for client-bidder communication/);
   assert.match(store, /target\.assignedAdminId === actor\.id/);
   assert.match(store, /Bidder must save a crypto payout wallet first/);
   assert.match(store, /portal_client_deposits/);

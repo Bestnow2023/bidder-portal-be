@@ -32,6 +32,8 @@ import {
   signUp,
   verifyEmail,
   updateDispute,
+  updateOwnEmail,
+  updateOwnPassword,
   updateUserAsAdmin,
   updateContractStatus,
   updatePostStatus,
@@ -174,6 +176,10 @@ export default async function handler(request, response) {
           return sendJson(response, 200, await requestEmailVerification(email, payload));
         case "saveProfile":
           return sendJson(response, 200, await saveProfile(email, payload));
+        case "updateOwnEmail":
+          return sendJson(response, 200, await updateOwnEmail(email, payload));
+        case "updateOwnPassword":
+          return sendJson(response, 200, await updateOwnPassword(email, payload));
         case "saveBidProfile":
           return sendJson(response, 200, await saveBidProfile(email, payload));
         case "deleteBidProfile":
