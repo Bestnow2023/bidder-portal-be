@@ -6,6 +6,7 @@ import {
   adjustCreditAsSuperAdmin,
   createCreditDeposit,
   createContract,
+  createDispute,
   createPost,
   deleteBidProfile,
   deleteChatMessage,
@@ -30,6 +31,7 @@ import {
   signIn,
   signUp,
   verifyEmail,
+  updateDispute,
   updateUserAsAdmin,
   updateContractStatus,
   updatePostStatus,
@@ -192,6 +194,10 @@ export default async function handler(request, response) {
           return sendJson(response, 200, await createContract(email, payload));
         case "updateContractStatus":
           return sendJson(response, 200, await updateContractStatus(email, payload));
+        case "createDispute":
+          return sendJson(response, 200, await createDispute(email, payload));
+        case "updateDispute":
+          return sendJson(response, 200, await updateDispute(email, payload));
         case "markNotificationsRead":
           return sendJson(response, 200, await markNotificationsRead(email, payload));
         case "savePaymentMethod":

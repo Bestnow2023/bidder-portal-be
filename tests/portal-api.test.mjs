@@ -33,6 +33,8 @@ test("declares the MongoDB portal API", async () => {
     "updatePostStatus",
     "createContract",
     "updateContractStatus",
+    "createDispute",
+    "updateDispute",
     "markNotificationsRead",
     "releasePayment",
     "savePaymentMethod",
@@ -61,6 +63,7 @@ test("declares the MongoDB portal API", async () => {
     "portal_contracts",
     "portal_posts",
     "portal_bid_profiles",
+    "portal_disputes",
     "portal_notifications",
     "portal_chat_messages",
     "portal_sessions",
@@ -101,7 +104,10 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /createPost/);
   assert.match(store, /updatePostStatus/);
   assert.match(store, /Free signup posting credit/);
-  assert.match(store, /You need at least \$1 credit to publish a post/);
+  assert.match(store, /You need at least \$1 post credit to publish a post/);
+  assert.match(store, /Only bidders can publish posts/);
+  assert.match(store, /Only clients can open disputes/);
+  assert.match(store, /Only super admins can resolve disputes/);
   assert.match(store, /escrowFeeFor/);
   assert.match(store, /feeAmount/);
   assert.match(store, /hashPassword/);
