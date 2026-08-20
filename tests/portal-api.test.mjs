@@ -42,6 +42,7 @@ test("declares the MongoDB portal API", async () => {
     "savePaymentMethod",
     "saveWorkLog",
     "deleteWorkLog",
+    "reviewWorkLog",
     "addPayment",
     "editPayment",
     "deletePayment",
@@ -132,6 +133,17 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /Current password is incorrect/);
   assert.match(store, /Paid work logs cannot be deleted/);
   assert.match(store, /workLogId/);
+  assert.match(store, /WORK_LOG_REVIEW_STATUSES/);
+  assert.match(store, /reviewStatus/);
+  assert.match(store, /reviewNote/);
+  assert.match(store, /reviewedByUserId/);
+  assert.match(store, /notifyAssignedClientForWorkLog/);
+  assert.match(store, /work_log_submitted/);
+  assert.match(store, /work_log_updated/);
+  assert.match(store, /work_log_approved/);
+  assert.match(store, /work_log_changes_requested/);
+  assert.match(store, /Only approved clients can review work logs/);
+  assert.match(store, /Add a suggestion before requesting edits/);
   assert.match(store, /BREVO_API_KEY/);
   assert.match(store, /EMAIL_FROM/);
   assert.match(store, /APP_BASE_URL/);
@@ -164,12 +176,14 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /sourcePaymentId/);
   assert.match(store, /baseAmount/);
   assert.match(store, /Select a valid scheduled payment to release/);
+  assert.match(store, /Only approved work logs can be released/);
   assert.match(store, /Super admins can monitor inbox conversations but cannot send direct messages/);
   assert.match(store, /Inbox messages are only for client-bidder communication/);
   assert.match(store, /target\.assignedAdminId === actor\.id/);
   assert.match(store, /Bidder must save a crypto payout wallet first/);
   assert.match(store, /portal_client_deposits/);
   assert.match(store, /portal_notifications/);
+  assert.match(store, /recipientUserId/);
   assert.match(store, /clientCreditBalance/);
   assert.match(store, /createSuperAdminCreditNotification/);
   assert.match(store, /Only super admins can adjust credits/);

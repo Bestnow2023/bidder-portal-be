@@ -23,6 +23,7 @@ import {
   requestEmailVerification,
   requestPasswordReset,
   resetPassword,
+  reviewWorkLog,
   saveBidProfile,
   savePaymentMethod,
   saveProfile,
@@ -212,6 +213,8 @@ export default async function handler(request, response) {
           return sendJson(response, 200, await saveWorkLog(email, payload));
         case "deleteWorkLog":
           return sendJson(response, 200, await deleteWorkLog(email, payload));
+        case "reviewWorkLog":
+          return sendJson(response, 200, await reviewWorkLog(email, payload));
         case "addPayment":
           return sendJson(response, 200, await addPaymentAsAdmin(email, payload));
         case "releasePayment":
