@@ -3,9 +3,11 @@ import {
   addEscrowAsClient,
   addManualCreditAsSuperAdmin,
   addPaymentAsAdmin,
+  adjustCreditAsSuperAdmin,
   createCreditDeposit,
   createContract,
   createPost,
+  deleteBidProfile,
   deleteChatMessage,
   deletePaymentAsAdmin,
   deleteUserAsAdmin,
@@ -20,6 +22,7 @@ import {
   requestEmailVerification,
   requestPasswordReset,
   resetPassword,
+  saveBidProfile,
   savePaymentMethod,
   saveProfile,
   saveWorkLog,
@@ -169,10 +172,16 @@ export default async function handler(request, response) {
           return sendJson(response, 200, await requestEmailVerification(email, payload));
         case "saveProfile":
           return sendJson(response, 200, await saveProfile(email, payload));
+        case "saveBidProfile":
+          return sendJson(response, 200, await saveBidProfile(email, payload));
+        case "deleteBidProfile":
+          return sendJson(response, 200, await deleteBidProfile(email, payload));
         case "addEscrow":
           return sendJson(response, 200, await addEscrowAsClient(email, payload));
         case "createCreditDeposit":
           return sendJson(response, 200, await createCreditDeposit(email, payload));
+        case "adjustCredit":
+          return sendJson(response, 200, await adjustCreditAsSuperAdmin(email, payload));
         case "addManualCredit":
           return sendJson(response, 200, await addManualCreditAsSuperAdmin(email, payload));
         case "createPost":

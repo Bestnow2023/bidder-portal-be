@@ -23,8 +23,11 @@ test("declares the MongoDB portal API", async () => {
     "deleteUser",
     "requestEmailVerification",
     "saveProfile",
+    "saveBidProfile",
+    "deleteBidProfile",
     "addEscrow",
     "createCreditDeposit",
+    "adjustCredit",
     "addManualCredit",
     "createPost",
     "updatePostStatus",
@@ -57,6 +60,7 @@ test("declares the MongoDB portal API", async () => {
     "portal_credit_ledger",
     "portal_contracts",
     "portal_posts",
+    "portal_bid_profiles",
     "portal_notifications",
     "portal_chat_messages",
     "portal_sessions",
@@ -80,10 +84,16 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /profileCompletedAt/);
   assert.match(store, /clientStats/);
   assert.match(store, /attachUserStats/);
-  assert.match(store, /SIGNUP_GIFT_CREDIT/);
+  assert.match(store, /SIGNUP_POST_CREDIT/);
   assert.match(store, /POST_CREDIT_COST/);
   assert.match(store, /creditBalancesForUser/);
   assert.match(store, /spendPostingCredit/);
+  assert.match(store, /postCreditBalance/);
+  assert.match(store, /profileCompleteForUser/);
+  assert.match(store, /Complete your profile before using the portal/);
+  assert.match(store, /saveBidProfile/);
+  assert.match(store, /deleteBidProfile/);
+  assert.match(store, /adjustCreditAsSuperAdmin/);
   assert.match(store, /contractFilterForUser/);
   assert.match(store, /postFilterForUser/);
   assert.match(store, /createContract/);
@@ -145,7 +155,7 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /portal_notifications/);
   assert.match(store, /clientCreditBalance/);
   assert.match(store, /createSuperAdminCreditNotification/);
-  assert.match(store, /Only super admins can add manual client credits/);
+  assert.match(store, /Only super admins can adjust credits/);
   assert.match(store, /Client credit added/);
   assert.match(envExample, /MONGODB_URI/);
   assert.match(envExample, /PORTAL_MODE/);
