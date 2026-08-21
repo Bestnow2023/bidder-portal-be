@@ -102,6 +102,10 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /assignedAdminId/);
   assert.match(store, /visibleUsersForCurrentUser/);
   assert.match(store, /profileCompletedAt/);
+  assert.match(store, /publicId/);
+  assert.match(store, /PUBLIC_USER_ID_PREFIX/);
+  assert.match(store, /ensurePublicUserIds/);
+  assert.match(store, /getUserByPublicId/);
   assert.match(store, /clientStats/);
   assert.match(store, /attachUserStats/);
   assert.match(store, /SIGNUP_POST_CREDIT/);
@@ -121,6 +125,7 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /contractFilterForUser/);
   assert.match(store, /postFilterForUser/);
   assert.match(store, /createContract/);
+  assert.match(store, /targetUserPublicId/);
   assert.match(store, /updateContract/);
   assert.match(store, /Only the client can edit contract content/);
   assert.match(store, /Only open contracts can be edited/);
