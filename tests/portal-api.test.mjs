@@ -28,6 +28,7 @@ test("declares the MongoDB portal API", async () => {
     "updateOwnPassword",
     "saveBidProfile",
     "deleteBidProfile",
+    "assignBidProfile",
     "addEscrow",
     "createCreditDeposit",
     "adjustCredit",
@@ -110,6 +111,10 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /Complete your profile before using the portal/);
   assert.match(store, /saveBidProfile/);
   assert.match(store, /deleteBidProfile/);
+  assert.match(store, /assignBidProfile/);
+  assert.match(store, /assignedBidderIds/);
+  assert.match(store, /Only clients can attach bid profiles to bidders/);
+  assert.match(store, /Select approved bidders assigned to this client/);
   assert.match(store, /adjustCreditAsSuperAdmin/);
   assert.match(store, /contractFilterForUser/);
   assert.match(store, /postFilterForUser/);

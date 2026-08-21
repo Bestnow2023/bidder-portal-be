@@ -3,6 +3,7 @@ import {
   addEscrowAsClient,
   addManualCreditAsSuperAdmin,
   addPaymentAsAdmin,
+  assignBidProfile,
   adjustCreditAsSuperAdmin,
   createCreditDeposit,
   createContract,
@@ -194,6 +195,8 @@ export default async function handler(request, response) {
           return sendJson(response, 200, await saveBidProfile(email, payload));
         case "deleteBidProfile":
           return sendJson(response, 200, await deleteBidProfile(email, payload));
+        case "assignBidProfile":
+          return sendJson(response, 200, await assignBidProfile(email, payload));
         case "addEscrow":
           return sendJson(response, 200, await addEscrowAsClient(email, payload));
         case "createCreditDeposit":
