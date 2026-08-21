@@ -3,6 +3,7 @@ import {
   addEscrowAsClient,
   addManualCreditAsSuperAdmin,
   addPaymentAsAdmin,
+  addSupportMessage,
   assignBidProfile,
   adjustCreditAsSuperAdmin,
   createCreditDeposit,
@@ -22,6 +23,7 @@ import {
   editPaymentAsAdmin,
   getPortalData,
   handleCryptomusWebhook,
+  markChatConversationRead,
   markNotificationsRead,
   releasePaymentAsClient,
   refreshPortal,
@@ -247,6 +249,10 @@ export default async function handler(request, response) {
           return sendJson(response, 200, await deletePaymentAsAdmin(email, payload));
         case "addChatMessage":
           return sendJson(response, 200, await addChatMessage(email, payload));
+        case "addSupportMessage":
+          return sendJson(response, 200, await addSupportMessage(email, payload));
+        case "markChatConversationRead":
+          return sendJson(response, 200, await markChatConversationRead(email, payload));
         case "editChatMessage":
           return sendJson(response, 200, await editChatMessage(email, payload));
         case "deleteChatMessage":

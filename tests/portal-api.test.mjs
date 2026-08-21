@@ -54,6 +54,8 @@ test("declares the MongoDB portal API", async () => {
     "editPayment",
     "deletePayment",
     "addChatMessage",
+    "addSupportMessage",
+    "markChatConversationRead",
     "editChatMessage",
     "deleteChatMessage",
     "deleteChatConversation",
@@ -126,6 +128,10 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /updateContractPayday/);
   assert.match(store, /contractNextPaymentDateFromPayload/);
   assert.match(store, /syncActiveContractNextPaymentDate/);
+  assert.match(store, /addContractChatMessage/);
+  assert.match(store, /contract_created/);
+  assert.match(store, /contract_accepted/);
+  assert.match(store, /relatedContractId/);
   assert.match(store, /Only the client can set the contract next payday/);
   assert.match(store, /Select a valid next payday/);
   assert.match(store, /createPost/);
@@ -186,6 +192,16 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /relatedPostId/);
   assert.match(store, /Related post must belong to one of the inbox members/);
   assert.match(store, /directMessageFilterForUser/);
+  assert.match(store, /supportMessageFilterForUser/);
+  assert.match(store, /supportContactsForCurrentUser/);
+  assert.match(store, /supportConversationId/);
+  assert.match(store, /supportMessages/);
+  assert.match(store, /Only approved users can send support messages/);
+  assert.match(store, /Select a valid support member/);
+  assert.match(store, /markChatConversationRead/);
+  assert.match(store, /readAt/);
+  assert.match(store, /readByUserId/);
+  assert.match(store, /Only direct participants can mark inbox messages read/);
   assert.match(store, /Select a valid inbox recipient/);
   assert.match(store, /Only super admins can delete inbox messages/);
   assert.match(store, /deleteChatConversation/);
@@ -206,6 +222,7 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /completePaymentAsSuperAdmin/);
   assert.match(store, /Only super admins can mark payments completed/);
   assert.match(store, /Only processing payments can be marked completed/);
+  assert.match(store, /Payment link is required to mark completed/);
   assert.match(store, /completedAt/);
   assert.match(store, /completedByUserId/);
   assert.match(store, /sourcePaymentId/);
