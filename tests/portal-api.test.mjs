@@ -34,7 +34,9 @@ test("declares the MongoDB portal API", async () => {
     "createPost",
     "updatePostStatus",
     "createContract",
+    "updateContract",
     "updateContractStatus",
+    "updateContractPayday",
     "createDispute",
     "updateDispute",
     "markNotificationsRead",
@@ -104,7 +106,15 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /contractFilterForUser/);
   assert.match(store, /postFilterForUser/);
   assert.match(store, /createContract/);
+  assert.match(store, /updateContract/);
+  assert.match(store, /Only the client can edit contract content/);
+  assert.match(store, /Only open contracts can be edited/);
   assert.match(store, /updateContractStatus/);
+  assert.match(store, /updateContractPayday/);
+  assert.match(store, /contractNextPaymentDateFromPayload/);
+  assert.match(store, /syncActiveContractNextPaymentDate/);
+  assert.match(store, /Only the client can set the contract next payday/);
+  assert.match(store, /Select a valid next payday/);
   assert.match(store, /createPost/);
   assert.match(store, /updatePostStatus/);
   assert.match(store, /Free signup posting credit/);

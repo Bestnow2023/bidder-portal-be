@@ -34,6 +34,8 @@ import {
   signUp,
   verifyEmail,
   updateDispute,
+  updateContract,
+  updateContractPayday,
   updateOwnEmail,
   updateOwnPassword,
   updateUserAsAdmin,
@@ -202,6 +204,10 @@ export default async function handler(request, response) {
           return sendJson(response, 200, await createContract(email, payload));
         case "updateContractStatus":
           return sendJson(response, 200, await updateContractStatus(email, payload));
+        case "updateContract":
+          return sendJson(response, 200, await updateContract(email, payload));
+        case "updateContractPayday":
+          return sendJson(response, 200, await updateContractPayday(email, payload));
         case "createDispute":
           return sendJson(response, 200, await createDispute(email, payload));
         case "updateDispute":
