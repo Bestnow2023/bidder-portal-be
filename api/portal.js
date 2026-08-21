@@ -8,10 +8,13 @@ import {
   createContract,
   createDispute,
   createPost,
+  createUserAsAdmin,
   completePaymentAsSuperAdmin,
   deleteBidProfile,
+  deleteChatConversation,
   deleteChatMessage,
   deletePaymentAsAdmin,
+  deletePost,
   deleteUserAsAdmin,
   deleteWorkLog,
   editChatMessage,
@@ -38,6 +41,7 @@ import {
   updateContractPayday,
   updateOwnEmail,
   updateOwnPassword,
+  updatePost,
   updateUserAsAdmin,
   updateContractStatus,
   updatePostStatus,
@@ -170,6 +174,8 @@ export default async function handler(request, response) {
               typeof payload.role === "string" ? payload.role : "bidder"
             )
           );
+        case "createUser":
+          return sendJson(response, 200, await createUserAsAdmin(email, payload));
         case "updateUser":
           return sendJson(response, 200, await updateUserAsAdmin(email, payload));
         case "setUserPassword":
@@ -198,8 +204,12 @@ export default async function handler(request, response) {
           return sendJson(response, 200, await addManualCreditAsSuperAdmin(email, payload));
         case "createPost":
           return sendJson(response, 200, await createPost(email, payload));
+        case "updatePost":
+          return sendJson(response, 200, await updatePost(email, payload));
         case "updatePostStatus":
           return sendJson(response, 200, await updatePostStatus(email, payload));
+        case "deletePost":
+          return sendJson(response, 200, await deletePost(email, payload));
         case "createContract":
           return sendJson(response, 200, await createContract(email, payload));
         case "updateContractStatus":
@@ -238,6 +248,8 @@ export default async function handler(request, response) {
           return sendJson(response, 200, await editChatMessage(email, payload));
         case "deleteChatMessage":
           return sendJson(response, 200, await deleteChatMessage(email, payload));
+        case "deleteChatConversation":
+          return sendJson(response, 200, await deleteChatConversation(email, payload));
         default:
           return errorResponse(response, new Error("Unknown action."), 400);
       }

@@ -18,6 +18,7 @@ test("declares the MongoDB portal API", async () => {
     "verifyEmail",
     "signIn",
     "signUp",
+    "createUser",
     "updateUser",
     "setUserPassword",
     "deleteUser",
@@ -32,7 +33,9 @@ test("declares the MongoDB portal API", async () => {
     "adjustCredit",
     "addManualCredit",
     "createPost",
+    "updatePost",
     "updatePostStatus",
+    "deletePost",
     "createContract",
     "updateContract",
     "updateContractStatus",
@@ -52,6 +55,7 @@ test("declares the MongoDB portal API", async () => {
     "addChatMessage",
     "editChatMessage",
     "deleteChatMessage",
+    "deleteChatConversation",
     "handleCryptomusWebhook",
   ]) {
     assert.match(api, new RegExp(action));
@@ -88,6 +92,10 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /super_admin/);
   assert.match(store, /client@portal\.local/);
   assert.match(store, /canonicalRole/);
+  assert.match(store, /MANAGED_ROLES/);
+  assert.match(store, /cleanManagedRole/);
+  assert.match(store, /createUserAsAdmin/);
+  assert.match(store, /Only super admins can add people/);
   assert.match(store, /assignedAdminId/);
   assert.match(store, /visibleUsersForCurrentUser/);
   assert.match(store, /profileCompletedAt/);
@@ -116,7 +124,11 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /Only the client can set the contract next payday/);
   assert.match(store, /Select a valid next payday/);
   assert.match(store, /createPost/);
+  assert.match(store, /updatePost/);
   assert.match(store, /updatePostStatus/);
+  assert.match(store, /deletePost/);
+  assert.match(store, /Only super admins can edit posts/);
+  assert.match(store, /Only super admins can delete posts/);
   assert.match(store, /Free signup posting credit/);
   assert.match(store, /You need at least \$1 post credit to publish a post/);
   assert.match(store, /Only bidders can publish posts/);
@@ -171,6 +183,8 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /directMessageFilterForUser/);
   assert.match(store, /Select a valid inbox recipient/);
   assert.match(store, /Only super admins can delete inbox messages/);
+  assert.match(store, /deleteChatConversation/);
+  assert.match(store, /Only super admins can delete inbox conversations/);
   assert.match(store, /allowDirectMessages/);
   assert.match(store, /not accepting direct messages/);
   assert.match(store, /methodId/);
