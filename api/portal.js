@@ -11,6 +11,7 @@ import {
   createContract,
   createDispute,
   createPost,
+  convertMoneyToPostCredit,
   createUserAsAdmin,
   completePaymentAsSuperAdmin,
   deleteBidProfile,
@@ -23,6 +24,7 @@ import {
   editChatMessage,
   editPaymentAsAdmin,
   getPortalData,
+  getPublicPortalData,
   handleCryptomusWebhook,
   markChatConversationRead,
   markNotificationsRead,
@@ -138,6 +140,10 @@ export default async function handler(request, response) {
         return sendJson(response, 200, await handleCryptomusWebhook(payload));
       }
 
+      if (action === "publicPortal") {
+        return sendJson(response, 200, await getPublicPortalData());
+      }
+
       if (!email) {
         return errorResponse(response, new Error("Email is required."), 400);
       }
@@ -211,6 +217,8 @@ export default async function handler(request, response) {
           return sendJson(response, 200, await adjustCreditAsSuperAdmin(email, payload));
         case "addManualCredit":
           return sendJson(response, 200, await addManualCreditAsSuperAdmin(email, payload));
+        case "convertMoneyToPostCredit":
+          return sendJson(response, 200, await convertMoneyToPostCredit(email, payload));
         case "createPost":
           return sendJson(response, 200, await createPost(email, payload));
         case "updatePost":

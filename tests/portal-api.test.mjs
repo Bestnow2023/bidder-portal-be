@@ -33,6 +33,7 @@ test("declares the MongoDB portal API", async () => {
     "createCreditDeposit",
     "adjustCredit",
     "addManualCredit",
+    "convertMoneyToPostCredit",
     "createPost",
     "updatePost",
     "updatePostStatus",
@@ -66,6 +67,7 @@ test("declares the MongoDB portal API", async () => {
     assert.match(api, new RegExp(action));
     assert.match(store, new RegExp(action));
   }
+  assert.match(api, /publicPortal/);
 
   for (const collection of [
     "portal_users",
@@ -108,15 +110,21 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /PUBLIC_USER_ID_PREFIX/);
   assert.match(store, /ensurePublicUserIds/);
   assert.match(store, /getUserByPublicId/);
+  assert.match(store, /publicMarketplaceUser/);
+  assert.match(store, /getPublicPortalData/);
   assert.match(store, /clientStats/);
   assert.match(store, /attachUserStats/);
   assert.match(store, /SIGNUP_POST_CREDIT/);
   assert.match(store, /POST_CREDIT_COST/);
+  assert.match(store, /POST_CREDIT_MONEY_PRICE/);
+  assert.match(store, /cleanPostCreditAmount/);
   assert.match(store, /creditBalancesForUser/);
   assert.match(store, /spendPostingCredit/);
   assert.match(store, /postCreditBalance/);
   assert.match(store, /monthly_post_credit/);
   assert.match(store, /rawPostCreditBalance/);
+  assert.match(store, /convertMoneyToPostCredit/);
+  assert.match(store, /money_to_post_credit/);
   assert.match(store, /profileCompleteForUser/);
   assert.match(store, /Complete your profile before using the portal/);
   assert.match(store, /saveBidProfile/);
@@ -137,6 +145,14 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /postFilterForUser/);
   assert.match(store, /createContract/);
   assert.match(store, /targetUserPublicId/);
+  assert.match(store, /CONTRACT_PAYMENT_STYLES/);
+  assert.match(store, /contractPaymentTermsFromPayload/);
+  assert.match(store, /paymentStyle/);
+  assert.match(store, /fixedBudget/);
+  assert.match(store, /hourlyRate/);
+  assert.match(store, /regularSalary/);
+  assert.match(store, /endDate/);
+  assert.match(store, /Contract end date must be after the start date/);
   assert.match(store, /updateContract/);
   assert.match(store, /Only the client can edit contract content/);
   assert.match(store, /Only open contracts can be edited/);
@@ -158,7 +174,7 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /You can only edit your own posts/);
   assert.match(store, /You can only delete\/close your own posts/);
   assert.match(store, /Free signup posting credit/);
-  assert.match(store, /You need at least \$1 post credit or money credit to publish a post/);
+  assert.match(store, /You need 1 post credit or \$0\.10 money credit to publish a post/);
   assert.match(store, /Only clients and bidders can publish posts/);
   assert.match(store, /Only clients can open disputes/);
   assert.match(store, /Only super admins can resolve disputes/);
@@ -184,6 +200,8 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /Client does not have enough credits for this payment/);
   assert.match(store, /This bidder is contracted with another client/);
   assert.match(store, /needsEmailVerification/);
+  assert.match(store, /user_approval_requested/);
+  assert.match(store, /New access approval request/);
   assert.match(store, /Verify your email before signing in/);
   assert.match(store, /Verify your email before using the portal/);
   assert.match(store, /Password reset\. Check your email to verify your account before signing in/);
