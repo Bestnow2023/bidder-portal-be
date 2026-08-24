@@ -186,6 +186,10 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /Only clients and bidders can publish posts/);
   assert.match(store, /Only clients can open disputes/);
   assert.match(store, /Only super admins can resolve disputes/);
+  assert.match(store, /Select who won the dispute/);
+  assert.match(store, /winnerUserId/);
+  assert.match(store, /dispute_won/);
+  assert.match(store, /dispute_lost/);
   assert.match(store, /addDisputeUpdate/);
   assert.match(store, /Closed disputes cannot be updated/);
   assert.match(store, /dispute_updated/);
