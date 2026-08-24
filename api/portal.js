@@ -3,6 +3,7 @@ import {
   addEscrowAsClient,
   addManualCreditAsSuperAdmin,
   addPaymentAsAdmin,
+  addDisputeUpdate,
   addSupportMessage,
   assignBidProfile,
   adjustCreditAsSuperAdmin,
@@ -26,6 +27,7 @@ import {
   markChatConversationRead,
   markNotificationsRead,
   releasePaymentAsClient,
+  requestWithdrawal,
   refreshPortal,
   requestEmailVerification,
   requestPasswordReset,
@@ -227,6 +229,8 @@ export default async function handler(request, response) {
           return sendJson(response, 200, await createDispute(email, payload));
         case "updateDispute":
           return sendJson(response, 200, await updateDispute(email, payload));
+        case "addDisputeUpdate":
+          return sendJson(response, 200, await addDisputeUpdate(email, payload));
         case "markNotificationsRead":
           return sendJson(response, 200, await markNotificationsRead(email, payload));
         case "savePaymentMethod":
@@ -243,6 +247,8 @@ export default async function handler(request, response) {
           return sendJson(response, 200, await releasePaymentAsClient(email, payload));
         case "completePayment":
           return sendJson(response, 200, await completePaymentAsSuperAdmin(email, payload));
+        case "requestWithdrawal":
+          return sendJson(response, 200, await requestWithdrawal(email, payload));
         case "editPayment":
           return sendJson(response, 200, await editPaymentAsAdmin(email, payload));
         case "deletePayment":

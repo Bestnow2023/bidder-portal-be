@@ -43,9 +43,11 @@ test("declares the MongoDB portal API", async () => {
     "updateContractPayday",
     "createDispute",
     "updateDispute",
+    "addDisputeUpdate",
     "markNotificationsRead",
     "releasePayment",
     "completePayment",
+    "requestWithdrawal",
     "savePaymentMethod",
     "saveWorkLog",
     "deleteWorkLog",
@@ -113,6 +115,8 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /creditBalancesForUser/);
   assert.match(store, /spendPostingCredit/);
   assert.match(store, /postCreditBalance/);
+  assert.match(store, /monthly_post_credit/);
+  assert.match(store, /rawPostCreditBalance/);
   assert.match(store, /profileCompleteForUser/);
   assert.match(store, /Complete your profile before using the portal/);
   assert.match(store, /saveBidProfile/);
@@ -146,13 +150,16 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /updatePost/);
   assert.match(store, /updatePostStatus/);
   assert.match(store, /deletePost/);
-  assert.match(store, /Only super admins can edit posts/);
-  assert.match(store, /Only super admins can delete posts/);
+  assert.match(store, /You can only edit your own posts/);
+  assert.match(store, /You can only delete your own posts/);
   assert.match(store, /Free signup posting credit/);
-  assert.match(store, /You need at least \$1 post credit to publish a post/);
-  assert.match(store, /Only bidders can publish posts/);
+  assert.match(store, /You need at least \$1 post credit or money credit to publish a post/);
+  assert.match(store, /Only clients and bidders can publish posts/);
   assert.match(store, /Only clients can open disputes/);
   assert.match(store, /Only super admins can resolve disputes/);
+  assert.match(store, /addDisputeUpdate/);
+  assert.match(store, /Closed disputes cannot be updated/);
+  assert.match(store, /dispute_updated/);
   assert.match(store, /escrowFeeFor/);
   assert.match(store, /feeAmount/);
   assert.match(store, /hashPassword/);
@@ -227,6 +234,9 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /createCryptomusPayout/);
   assert.match(store, /handleCryptomusPayoutWebhook/);
   assert.match(store, /Only clients can release bidder payments/);
+  assert.match(store, /CLIENT_RELEASE_PAYMENT_TYPE/);
+  assert.match(store, /recordBidderPaymentCredit/);
+  assert.match(store, /client_release/);
   assert.match(store, /completePaymentAsSuperAdmin/);
   assert.match(store, /Only super admins can mark payments completed/);
   assert.match(store, /Only processing payments can be marked completed/);
@@ -237,10 +247,16 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /baseAmount/);
   assert.match(store, /Select a valid scheduled payment to release/);
   assert.match(store, /Only approved work logs can be released/);
+  assert.match(store, /requestWithdrawal/);
+  assert.match(store, /WITHDRAWAL_PAYMENT_TYPE/);
+  assert.match(store, /recordWithdrawalCreditHold/);
+  assert.match(store, /withdrawal_request/);
+  assert.match(store, /withdrawal_requested/);
+  assert.match(store, /withdrawal_completed/);
   assert.match(store, /Super admins can monitor inbox conversations but cannot send direct messages/);
   assert.match(store, /Inbox messages are only for client-bidder communication/);
   assert.match(store, /target\.assignedAdminId === actor\.id/);
-  assert.match(store, /Bidder must save a crypto payout wallet first/);
+  assert.match(store, /Save a crypto payout wallet before requesting a withdrawal/);
   assert.match(store, /portal_client_deposits/);
   assert.match(store, /portal_notifications/);
   assert.match(store, /recipientUserId/);
