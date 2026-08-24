@@ -157,6 +157,14 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /Only the client can edit contract content/);
   assert.match(store, /Only open contracts can be edited/);
   assert.match(store, /updateContractStatus/);
+  assert.match(store, /CONTRACT_END_TYPES/);
+  assert.match(store, /contractHasReleasedPayment/);
+  assert.match(store, /endFeedback/);
+  assert.match(store, /endReason/);
+  assert.match(store, /paidBeforeEnding/);
+  assert.match(store, /Add a short note about how the work went/);
+  assert.match(store, /Add a reason before ending this unpaid contract/);
+  assert.match(store, /contract_ended/);
   assert.match(store, /updateContractPayday/);
   assert.match(store, /contractNextPaymentDateFromPayload/);
   assert.match(store, /syncActiveContractNextPaymentDate/);
