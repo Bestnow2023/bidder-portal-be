@@ -139,7 +139,7 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /veteranStatus/);
   assert.match(store, /assignedBidderIds/);
   assert.match(store, /Only clients can attach bid profiles to bidders/);
-  assert.match(store, /Select approved bidders assigned to this client/);
+  assert.match(store, /Select active bidders assigned to this client/);
   assert.match(store, /adjustCreditAsSuperAdmin/);
   assert.match(store, /contractFilterForUser/);
   assert.match(store, /postFilterForUser/);
@@ -226,7 +226,7 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /work_log_updated/);
   assert.match(store, /work_log_approved/);
   assert.match(store, /work_log_changes_requested/);
-  assert.match(store, /Only approved clients can review work logs/);
+  assert.match(store, /Only active clients can review work logs/);
   assert.match(store, /Add a suggestion before requesting edits/);
   assert.match(store, /BREVO_API_KEY/);
   assert.match(store, /EMAIL_FROM/);
@@ -249,7 +249,7 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /supportContactsForCurrentUser/);
   assert.match(store, /supportConversationId/);
   assert.match(store, /supportMessages/);
-  assert.match(store, /Only approved users can send support messages/);
+  assert.match(store, /Only active users can send support messages/);
   assert.match(store, /Select a valid support member/);
   assert.match(store, /markChatConversationRead/);
   assert.match(store, /readAt/);
