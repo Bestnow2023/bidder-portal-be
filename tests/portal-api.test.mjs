@@ -125,6 +125,10 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /notifyBidProfileAssigned/);
   assert.match(store, /bid_profile_assigned/);
   assert.match(store, /New bid profile assigned/);
+  assert.match(store, /Bid profile updated/);
+  assert.match(store, /lastFourSsn/);
+  assert.match(store, /resumeUrl/);
+  assert.match(store, /veteranStatus/);
   assert.match(store, /assignedBidderIds/);
   assert.match(store, /Only clients can attach bid profiles to bidders/);
   assert.match(store, /Select approved bidders assigned to this client/);
