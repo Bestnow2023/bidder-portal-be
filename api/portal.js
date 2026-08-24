@@ -27,6 +27,7 @@ import {
   markChatConversationRead,
   markNotificationsRead,
   releasePaymentAsClient,
+  repostPost,
   requestWithdrawal,
   refreshPortal,
   requestEmailVerification,
@@ -165,7 +166,8 @@ export default async function handler(request, response) {
             await signIn(
               email,
               typeof payload.password === "string" ? payload.password : "",
-              typeof payload.name === "string" ? payload.name : undefined
+              typeof payload.name === "string" ? payload.name : undefined,
+              Boolean(payload.rememberMe)
             )
           );
         case "signUp":
@@ -217,6 +219,8 @@ export default async function handler(request, response) {
           return sendJson(response, 200, await updatePostStatus(email, payload));
         case "deletePost":
           return sendJson(response, 200, await deletePost(email, payload));
+        case "repostPost":
+          return sendJson(response, 200, await repostPost(email, payload));
         case "createContract":
           return sendJson(response, 200, await createContract(email, payload));
         case "updateContractStatus":

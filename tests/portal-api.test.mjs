@@ -154,8 +154,9 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /updatePost/);
   assert.match(store, /updatePostStatus/);
   assert.match(store, /deletePost/);
+  assert.match(store, /repostPost/);
   assert.match(store, /You can only edit your own posts/);
-  assert.match(store, /You can only delete your own posts/);
+  assert.match(store, /You can only delete\/close your own posts/);
   assert.match(store, /Free signup posting credit/);
   assert.match(store, /You need at least \$1 post credit or money credit to publish a post/);
   assert.match(store, /Only clients and bidders can publish posts/);
@@ -169,6 +170,10 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /hashPassword/);
   assert.match(store, /verifyPassword/);
   assert.match(store, /createSession/);
+  assert.match(store, /SESSION_MS = 4 \* 60 \* 60 \* 1000/);
+  assert.match(store, /REMEMBERED_SESSION_MS = 5 \* 24 \* 60 \* 60 \* 1000/);
+  assert.match(store, /sessionDurationMs/);
+  assert.match(store, /rememberMe/);
   assert.match(store, /passwordHash/);
   assert.match(store, /paidPaymentCoversDate/);
   assert.match(store, /paidPaymentCoversPayDate/);
@@ -203,6 +208,9 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /API_BASE_URL/);
   assert.match(store, /emailVerifiedAt/);
   assert.match(store, /MAX_CHAT_ATTACHMENT_BYTES/);
+  assert.match(store, /MAX_PROFILE_IMAGE_DATA_URL_LENGTH/);
+  assert.match(store, /cleanProfileImageDataUrl/);
+  assert.match(store, /profileImageDataUrl/);
   assert.match(store, /authorTimeZone/);
   assert.match(store, /deletedAt/);
   assert.match(store, /chatContacts/);
