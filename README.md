@@ -78,6 +78,12 @@ settings, messages are saved to `portal_email_events` for testing.
 Chat attachments are stored directly with the message as small data URLs. Each
 attached file must be 2 MB or smaller.
 
+The public portal marketplace response is available as
+`GET /api/portal?action=publicPortal` and includes CDN cache headers plus ETag
+support. Private authenticated portal responses are not publicly cached. During
+silent refreshes, the frontend can send known chat attachment IDs so the API can
+skip resending already-loaded attachment data URLs.
+
 Bidders can update their own work logs until a paid payment record covers that
 work date.
 

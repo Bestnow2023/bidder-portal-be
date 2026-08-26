@@ -54,6 +54,9 @@ import {
   updateContractStatus,
   updatePostStatus,
 } from "../lib/portal-store.js";
+import { createHash } from "node:crypto";
+
+const publicPortalCacheControl = "public, max-age=60, s-maxage=300, stale-while-revalidate=600";
 
 function allowedOrigins() {
   return (process.env.ALLOWED_ORIGINS || "")
@@ -74,13 +77,32 @@ function setCors(request, response) {
 
   response.setHeader("Vary", "Origin");
   response.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
-  response.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  response.setHeader("Access-Control-Allow-Headers", "Content-Type, If-None-Match");
+  response.setHeader("Access-Control-Expose-Headers", "Cache-Control, ETag");
 }
 
-function sendJson(response, status, payload) {
+function etagForBody(body) {
+  return `"${createHash("sha256").update(body).digest("base64url")}"`;
+}
+
+function sendJson(response, status, payload, options = {}) {
+  const body = JSON.stringify(payload);
+  const etag = options.etag === false ? "" : etagForBody(body);
+
   response.statusCode = status;
   response.setHeader("Content-Type", "application/json");
-  response.end(JSON.stringify(payload));
+  response.setHeader("Cache-Control", options.cacheControl || "private, no-store");
+  if (etag) {
+    response.setHeader("ETag", etag);
+  }
+
+  if (status === 200 && options.request?.headers?.["if-none-match"] === etag) {
+    response.statusCode = 304;
+    response.end();
+    return;
+  }
+
+  response.end(body);
 }
 
 function errorResponse(response, error, status = 400) {
@@ -118,6 +140,14 @@ export default async function handler(request, response) {
   if (request.method === "GET") {
     try {
       const url = new URL(request.url || "/", "http://localhost");
+      const action = url.searchParams.get("action") || "";
+      if (action === "publicPortal") {
+        return sendJson(response, 200, await getPublicPortalData(), {
+          cacheControl: publicPortalCacheControl,
+          request,
+        });
+      }
+
       const email = url.searchParams.get("email") || "";
       const sessionToken = url.searchParams.get("sessionToken") || "";
       if (!email) {
@@ -141,7 +171,10 @@ export default async function handler(request, response) {
       }
 
       if (action === "publicPortal") {
-        return sendJson(response, 200, await getPublicPortalData());
+        return sendJson(response, 200, await getPublicPortalData(), {
+          cacheControl: publicPortalCacheControl,
+          request,
+        });
       }
 
       if (!email) {
@@ -150,7 +183,13 @@ export default async function handler(request, response) {
 
       switch (action) {
         case "refreshPortal":
-          return sendJson(response, 200, await refreshPortal(email, typeof payload.sessionToken === "string" ? payload.sessionToken : ""));
+          return sendJson(
+            response,
+            200,
+            await refreshPortal(email, typeof payload.sessionToken === "string" ? payload.sessionToken : "", {
+              knownAttachmentIds: Array.isArray(payload.knownAttachmentIds) ? payload.knownAttachmentIds : [],
+            })
+          );
         case "requestPasswordReset":
           return sendJson(response, 200, await requestPasswordReset(email));
         case "resetPassword":

@@ -68,6 +68,11 @@ test("declares the MongoDB portal API", async () => {
     assert.match(store, new RegExp(action));
   }
   assert.match(api, /publicPortal/);
+  assert.match(api, /publicPortalCacheControl/);
+  assert.match(api, /If-None-Match/);
+  assert.match(api, /ETag/);
+  assert.match(api, /action === "publicPortal"/);
+  assert.match(api, /knownAttachmentIds/);
 
   for (const collection of [
     "portal_users",
@@ -112,6 +117,8 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /getUserByPublicId/);
   assert.match(store, /publicMarketplaceUser/);
   assert.match(store, /getPublicPortalData/);
+  assert.match(store, /stripKnownPortalAttachmentDataUrls/);
+  assert.match(store, /cleanKnownAttachmentIds/);
   assert.match(store, /clientStats/);
   assert.match(store, /attachUserStats/);
   assert.match(store, /SIGNUP_POST_CREDIT/);
