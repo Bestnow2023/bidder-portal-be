@@ -177,6 +177,8 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /syncActiveContractNextPaymentDate/);
   assert.match(store, /addContractChatMessage/);
   assert.match(store, /contract_created/);
+  assert.match(store, /contract_updated/);
+  assert.match(store, /Contract updated:/);
   assert.match(store, /contract_accepted/);
   assert.match(store, /relatedContractId/);
   assert.match(store, /Only the client can set the contract next payday/);
