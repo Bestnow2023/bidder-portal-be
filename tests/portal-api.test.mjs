@@ -49,6 +49,8 @@ test("declares the MongoDB portal API", async () => {
     "releasePayment",
     "completePayment",
     "requestWithdrawal",
+    "denyWithdrawal",
+    "cancelWithdrawal",
     "savePaymentMethod",
     "saveWorkLog",
     "deleteWorkLog",
@@ -304,6 +306,17 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /withdrawal_request/);
   assert.match(store, /withdrawal_requested/);
   assert.match(store, /withdrawal_completed/);
+  assert.match(store, /denyWithdrawalAsSuperAdmin/);
+  assert.match(store, /cancelWithdrawal/);
+  assert.match(store, /Only super admins can deny withdrawals/);
+  assert.match(store, /Only processing withdrawals can be denied/);
+  assert.match(store, /You can only cancel your own withdrawal request/);
+  assert.match(store, /Only processing withdrawals can be cancelled/);
+  assert.match(store, /withdrawal_denied/);
+  assert.match(store, /withdrawal_cancelled/);
+  assert.match(store, /status: "denied"/);
+  assert.match(store, /status: "cancelled"/);
+  assert.match(store, /releaseWithdrawalCreditHold/);
   assert.match(store, /Super admins can monitor inbox conversations but cannot send direct messages/);
   assert.match(store, /Inbox messages are only for client-bidder communication/);
   assert.match(store, /target\.assignedAdminId === actor\.id/);

@@ -7,6 +7,7 @@ import {
   addSupportMessage,
   assignBidProfile,
   adjustCreditAsSuperAdmin,
+  cancelWithdrawal,
   createCreditDeposit,
   createContract,
   createDispute,
@@ -31,6 +32,7 @@ import {
   releasePaymentAsClient,
   repostPost,
   requestWithdrawal,
+  denyWithdrawalAsSuperAdmin,
   refreshPortal,
   requestEmailVerification,
   requestPasswordReset,
@@ -300,6 +302,10 @@ export default async function handler(request, response) {
           return sendJson(response, 200, await completePaymentAsSuperAdmin(email, payload));
         case "requestWithdrawal":
           return sendJson(response, 200, await requestWithdrawal(email, payload));
+        case "denyWithdrawal":
+          return sendJson(response, 200, await denyWithdrawalAsSuperAdmin(email, payload));
+        case "cancelWithdrawal":
+          return sendJson(response, 200, await cancelWithdrawal(email, payload));
         case "editPayment":
           return sendJson(response, 200, await editPaymentAsAdmin(email, payload));
         case "deletePayment":
