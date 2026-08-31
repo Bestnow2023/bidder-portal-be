@@ -317,6 +317,11 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /status: "denied"/);
   assert.match(store, /status: "cancelled"/);
   assert.match(store, /releaseWithdrawalCreditHold/);
+  assert.match(store, /paymentMethodFilterForCurrentUser/);
+  assert.match(store, /paymentFilterForCurrentUser/);
+  assert.match(store, /paymentForViewer/);
+  assert.match(store, /paymentType: \{ \$ne: WITHDRAWAL_PAYMENT_TYPE \}/);
+  assert.match(store, /payoutAddress: ""/);
   assert.match(store, /Super admins can monitor inbox conversations but cannot send direct messages/);
   assert.match(store, /Inbox messages are only for client-bidder communication/);
   assert.match(store, /target\.assignedAdminId === actor\.id/);
