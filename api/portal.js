@@ -27,6 +27,7 @@ import {
   getPortalData,
   getPublicPortalData,
   handleCryptomusWebhook,
+  loadPortalPage,
   markChatConversationRead,
   markNotificationsRead,
   releasePaymentAsClient,
@@ -192,6 +193,8 @@ export default async function handler(request, response) {
               knownAttachmentIds: Array.isArray(payload.knownAttachmentIds) ? payload.knownAttachmentIds : [],
             })
           );
+        case "loadPortalPage":
+          return sendJson(response, 200, await loadPortalPage(email, payload));
         case "requestPasswordReset":
           return sendJson(response, 200, await requestPasswordReset(email));
         case "resetPassword":

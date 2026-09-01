@@ -13,6 +13,7 @@ test("declares the MongoDB portal API", async () => {
 
   for (const action of [
     "refreshPortal",
+    "loadPortalPage",
     "requestPasswordReset",
     "resetPassword",
     "verifyEmail",
@@ -75,6 +76,13 @@ test("declares the MongoDB portal API", async () => {
   assert.match(api, /ETag/);
   assert.match(api, /action === "publicPortal"/);
   assert.match(api, /knownAttachmentIds/);
+  assert.match(store, /PORTAL_INITIAL_LIMITS/);
+  assert.match(store, /PORTAL_PAGE_MAX_LIMIT/);
+  assert.match(store, /fetchPortalPage/);
+  assert.match(store, /pageInfo/);
+  assert.match(store, /chatMessagePreview/);
+  assert.match(store, /hasChatHistory/);
+  assert.match(store, /chatLastMessagePreview/);
 
   for (const collection of [
     "portal_users",
