@@ -163,8 +163,11 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /createContract/);
   assert.match(store, /targetUserPublicId/);
   assert.match(store, /CONTRACT_PAYMENT_STYLES/);
+  assert.match(store, /CONTRACT_WORK_DAYS/);
   assert.match(store, /contractPaymentTermsFromPayload/);
+  assert.match(store, /normalizeContractWorkDays/);
   assert.match(store, /paymentStyle/);
+  assert.match(store, /workDays/);
   assert.match(store, /fixedBudget/);
   assert.match(store, /hourlyRate/);
   assert.match(store, /regularSalary/);
@@ -225,6 +228,11 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /paidPaymentCoversDate/);
   assert.match(store, /paidPaymentCoversPayDate/);
   assert.match(store, /releasedPaymentOverlapsPeriod/);
+  assert.match(store, /activeContractForWorkLog/);
+  assert.match(store, /Select an active contract for this work date/);
+  assert.match(store, /This contract only allows weekday work logs/);
+  assert.match(store, /This contract only allows weekend work logs/);
+  assert.match(store, /contractId: selectedContract\.id/);
   assert.match(store, /paymentFrequency/);
   assert.match(store, /paymentWeekday/);
   assert.match(store, /nextOpenPaymentDate/);
