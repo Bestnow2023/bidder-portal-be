@@ -211,7 +211,7 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /Free signup posting credit/);
   assert.match(store, /You need 1 post credit or \$0\.10 money credit to publish a post/);
   assert.match(store, /Only clients and bidders can publish posts/);
-  assert.match(store, /Only clients can open disputes/);
+  assert.match(store, /Only active clients and bidders can open disputes/);
   assert.match(store, /Only super admins can resolve disputes/);
   assert.match(store, /Select who won the dispute/);
   assert.match(store, /winnerUserId/);
