@@ -2,6 +2,15 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 import portalHandler from "../api/portal.js";
+import { withdrawalAvailableAt } from "../lib/payment-hold.js";
+
+test("payment hold counts three weekdays and preserves release time", () => {
+  assert.equal(withdrawalAvailableAt("2026-09-14T15:30:00.000Z"), "2026-09-17T15:30:00.000Z");
+  assert.equal(withdrawalAvailableAt("2026-09-18T15:30:00.000Z"), "2026-09-23T15:30:00.000Z");
+  assert.equal(withdrawalAvailableAt("2026-09-19T15:30:00.000Z"), "2026-09-23T15:30:00.000Z");
+  assert.equal(withdrawalAvailableAt("2026-12-31T15:30:00.000Z"), "2027-01-05T15:30:00.000Z");
+  assert.throws(() => withdrawalAvailableAt("invalid"));
+});
 
 test("declares the MongoDB portal API", async () => {
   const [api, store, packageJson, envExample] = await Promise.all([
