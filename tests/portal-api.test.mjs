@@ -241,6 +241,11 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /needsEmailVerification/);
   assert.match(store, /user_approval_requested/);
   assert.match(store, /New access approval request/);
+  assert.match(store, /accountStatusNotification/);
+  assert.match(store, /account_status_updated/);
+  assert.match(store, /Account approved/);
+  assert.match(store, /Super admin approved your account/);
+  assert.match(store, /portal\.sessions\.deleteMany\(\{ userId: target\.id \}\)/);
   assert.match(store, /Verify your email before signing in/);
   assert.match(store, /Verify your email before using the portal/);
   assert.match(store, /Password reset\. Check your email to verify your account before signing in/);
