@@ -1,5 +1,6 @@
 import {
   addChatMessage,
+  addChatAlertMessage,
   addEscrowAsClient,
   addManualCreditAsSuperAdmin,
   addPaymentAsAdmin,
@@ -315,6 +316,8 @@ export default async function handler(request, response) {
           return sendJson(response, 200, await deletePaymentAsAdmin(email, payload));
         case "addChatMessage":
           return sendJson(response, 200, await addChatMessage(email, payload));
+        case "addChatAlertMessage":
+          return sendJson(response, 200, await addChatAlertMessage(email, payload));
         case "addSupportMessage":
           return sendJson(response, 200, await addSupportMessage(email, payload));
         case "markChatConversationRead":

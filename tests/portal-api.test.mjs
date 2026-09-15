@@ -60,6 +60,7 @@ test("declares the MongoDB portal API", async () => {
     "editPayment",
     "deletePayment",
     "addChatMessage",
+    "addChatAlertMessage",
     "addSupportMessage",
     "markChatConversationRead",
     "editChatMessage",
@@ -79,6 +80,8 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /PORTAL_INITIAL_LIMITS/);
   assert.match(store, /PORTAL_PAGE_MAX_LIMIT/);
   assert.match(store, /fetchPortalPage/);
+  assert.match(store, /CHAT_ATTACHMENT_META_PROJECTION/);
+  assert.match(store, /projection: options\.projection/);
   assert.match(store, /pageInfo/);
   assert.match(store, /chatMessagePreview/);
   assert.match(store, /hasChatHistory/);
@@ -131,6 +134,8 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /cleanKnownAttachmentIds/);
   assert.match(store, /clientStats/);
   assert.match(store, /attachUserStats/);
+  assert.match(store, /creditBalancesForUsers/);
+  assert.match(store, /ensureMonthlyPostCreditForUsers/);
   assert.match(store, /SIGNUP_POST_CREDIT/);
   assert.match(store, /POST_CREDIT_COST/);
   assert.match(store, /POST_CREDIT_MONEY_PRICE/);
@@ -237,6 +242,10 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /paymentWeekday/);
   assert.match(store, /nextOpenPaymentDate/);
   assert.match(store, /Client does not have enough credits for this payment/);
+  assert.match(store, /assertCanReleasePaymentForClient/);
+  assert.match(store, /active", "ended/);
+  assert.match(store, /Select a bidder with your active or ended contract/);
+  assert.match(store, /paymentPortion/);
   assert.match(store, /This bidder is contracted with another client/);
   assert.match(store, /needsEmailVerification/);
   assert.match(store, /user_approval_requested/);
@@ -287,6 +296,14 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /supportMessages/);
   assert.match(store, /Only active users can send support messages/);
   assert.match(store, /Select a valid support member/);
+  assert.match(store, /addChatAlertMessage/);
+  assert.match(store, /Only super admins can send inbox alerts/);
+  assert.match(store, /Alert recipient must be in this inbox conversation/);
+  assert.match(store, /inbox_admin_alert/);
+  assert.match(store, /admin_alert/);
+  assert.match(store, /assertSafeInboxText/);
+  assert.match(store, /BLOCKED_INBOX_WORDS/);
+  assert.match(store, /This message contains blocked unsafe words/);
   assert.match(store, /markChatConversationRead/);
   assert.match(store, /readAt/);
   assert.match(store, /readByUserId/);
@@ -362,6 +379,7 @@ test("declares the MongoDB portal API", async () => {
   assert.match(envExample, /API_BASE_URL/);
   assert.match(envExample, /EMAIL_FROM/);
   assert.match(envExample, /BREVO_API_KEY/);
+  assert.match(envExample, /BLOCKED_INBOX_WORDS/);
   assert.match(envExample, /CRYPTOMUS_MERCHANT_UUID/);
   assert.match(envExample, /CRYPTOMUS_PAYMENT_KEY/);
   assert.match(envExample, /CRYPTOMUS_PAYOUT_KEY/);
