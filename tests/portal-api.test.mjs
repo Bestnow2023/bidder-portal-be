@@ -3,6 +3,17 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 import portalHandler from "../api/portal.js";
 import { withdrawalAvailableAt } from "../lib/payment-hold.js";
+import { overduePaymentAmount } from "../lib/overdue-payment.js";
+
+test("overdue settlement uses the full stored amount and rejects ineligible records", () => {
+  const payment = { clientId: "client", userId: "bidder", status: "scheduled", scheduledDate: "2026-09-15", amount: 125.5 };
+  const settle = (changes = {}) => overduePaymentAmount({ ...payment, ...changes }, "client", "bidder", "2026-09-16");
+  assert.equal(settle(), 125.5);
+  for (const changes of [{ status: "paid" }, { status: "processing" }, { scheduledDate: "2026-09-16" }, { scheduledDate: "2026-09-17" }, { scheduledDate: "" }, { clientId: "other" }, { userId: "other" }, { paymentType: "withdrawal" }, { amount: 0 }, { amount: -1 }, { amount: Infinity }]) {
+    assert.throws(() => settle(changes));
+  }
+  assert.throws(() => overduePaymentAmount(null, "client", "bidder", "2026-09-16"));
+});
 
 test("payment hold counts three weekdays and preserves release time", () => {
   assert.equal(withdrawalAvailableAt("2026-09-14T15:30:00.000Z"), "2026-09-17T15:30:00.000Z");
