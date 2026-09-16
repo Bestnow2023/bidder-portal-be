@@ -357,7 +357,8 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /sourcePaymentId/);
   assert.match(store, /baseAmount/);
   assert.match(store, /Select a valid scheduled payment to release/);
-  assert.match(store, /Only approved work logs can be released/);
+  assert.match(store, /approvedClientWorkFilter\(client.id, target.id, clientContractIds, periodStart, periodEnd\)/);
+  assert.match(store, /The requested amount exceeds the approved work total/);
   assert.match(store, /requestWithdrawal/);
   assert.match(store, /WITHDRAWAL_PAYMENT_TYPE/);
   assert.match(store, /recordWithdrawalCreditHold/);
