@@ -333,7 +333,7 @@ test("declares the MongoDB portal API", async () => {
   assert.match(store, /cryptomusSign/);
   assert.match(store, /createCryptomusPayout/);
   assert.match(store, /handleCryptomusPayoutWebhook/);
-  assert.match(store, /Only clients can release bidder payments/);
+  assert.match(store, /Only active clients and super admins can release bidder payments/);
   assert.match(store, /CLIENT_RELEASE_PAYMENT_TYPE/);
   assert.match(store, /recordBidderPaymentCredit/);
   assert.match(store, /client_release/);
