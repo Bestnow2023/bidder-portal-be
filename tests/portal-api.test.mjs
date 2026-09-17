@@ -4,6 +4,20 @@ import test from "node:test";
 import portalHandler from "../api/portal.js";
 import { withdrawalAvailableAt } from "../lib/payment-hold.js";
 import { overduePaymentAmount } from "../lib/overdue-payment.js";
+import { paymentReceivedEmail } from "../lib/payment-email.js";
+
+test("payment receipt includes the credited amount, period and safe payment link", () => {
+  const input = { name: '<img src=x onerror="alert(1)">', clientName: "Client & Company", amount: 125.5, paymentId: "payment-123", periodStart: "2026-09-01", periodEnd: "2026-09-15", availableAt: "2026-09-22T15:30:00.000Z", baseUrl: "https://portal.example.com" };
+  const email = paymentReceivedEmail(input);
+  assert.match(email.subject, /\$125\.50/);
+  assert.match(email.text, /2026-09-01 to 2026-09-15/);
+  assert.match(email.text, /payment-123/);
+  assert.match(email.text, /UTC/);
+  assert.match(email.html, /href="https:\/\/portal.example.com\/payments"/);
+  assert.match(email.html, /Client &amp; Company/);
+  assert.doesNotMatch(email.html, /<img src=x/);
+  assert.throws(() => paymentReceivedEmail({ ...input, baseUrl: "javascript:alert(1)" }));
+});
 
 test("overdue settlement uses the full stored amount and rejects ineligible records", () => {
   const payment = { clientId: "client", userId: "bidder", status: "scheduled", scheduledDate: "2026-09-15", amount: 125.5 };
