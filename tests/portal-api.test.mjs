@@ -5,6 +5,22 @@ import portalHandler from "../api/portal.js";
 import { withdrawalAvailableAt } from "../lib/payment-hold.js";
 import { overduePaymentAmount } from "../lib/overdue-payment.js";
 import { paymentReceivedEmail } from "../lib/payment-email.js";
+import { accountEmail } from "../lib/account-email.js";
+
+test("account emails preserve token links and show the correct expiry", () => {
+  for (const [kind, hours, button] of [["password_reset", 1, "Reset password"], ["email_verification", 24, "Verify email address"]]) {
+    const actionUrl = "https://portal.example.com/?email=a%2Bb%40example.com&token=example-token";
+    const email = accountEmail({ kind, name: '<script>"Name"</script>', actionUrl, expiresInMs: hours * 3600000 });
+    assert.ok(email.text.includes(actionUrl));
+    assert.ok(email.html.includes(actionUrl.replaceAll("&", "&amp;")));
+    assert.ok(email.html.includes(button));
+    assert.ok(email.text.includes(`${hours} ${hours === 1 ? "hour" : "hours"}`));
+    assert.doesNotMatch(email.html, /<script>/);
+    assert.match(email.html, /&lt;script&gt;/);
+    assert.match(email.text, /ignore this email/);
+  }
+  assert.throws(() => accountEmail({ kind: "password_reset", actionUrl: "javascript:alert(1)", expiresInMs: 3600000 }));
+});
 
 test("payment receipt includes the credited amount, period and safe payment link", () => {
   const input = { name: '<img src=x onerror="alert(1)">', clientName: "Client & Company", amount: 125.5, paymentId: "payment-123", periodStart: "2026-09-01", periodEnd: "2026-09-15", availableAt: "2026-09-22T15:30:00.000Z", baseUrl: "https://portal.example.com" };
